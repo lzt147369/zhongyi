@@ -35,15 +35,5 @@ public class Role extends DataEntity<Role> {
         return menuSet;
     }
 
-    public void setMenuSet(Set<Menu> menuSet) {
-        this.menuSet = menuSet;
-    }
 
-    public Set<User> getUserSet() {
-        return userSet;
-    }
-
-    public void setUserSet(Set<User> userSet) {
-        this.userSet = userSet;
-    }
 }

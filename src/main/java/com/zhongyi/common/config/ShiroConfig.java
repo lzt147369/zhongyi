@@ -127,7 +127,6 @@ public class ShiroConfig {
 
     /**
      * AOP式方法级权限检查
-     * @return
      */
     @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
@@ -138,7 +137,6 @@ public class ShiroConfig {
 
     /**
      *  保证实现了Shiro内部lifecycle函数的bean执行
-     * @return
      */
     @Bean
     public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){

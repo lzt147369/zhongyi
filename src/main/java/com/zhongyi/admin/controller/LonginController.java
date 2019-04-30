@@ -88,6 +88,7 @@ public class LonginController {
         }else {
             session.setAttribute(LOGIN_TYPE,LoginTypeEnum.PAGE);
             return "admin/login";
+
         }
     }
 

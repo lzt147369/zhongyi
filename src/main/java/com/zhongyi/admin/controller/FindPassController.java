@@ -58,6 +58,7 @@ public class FindPassController {
         if (user==null){
             msg.setCode(2);
             msg.setMsg("此手机号未注册过");
+            return msg;
         }
         user.setPassword(repass);
         Encodes.entryptPassword(user);
@@ -158,6 +159,7 @@ public class FindPassController {
                 //验证码填写错误
                 msg.setCode(4);
                 msg.setMsg("手机验证码填写错误");
+
                 return msg;
             }
 
