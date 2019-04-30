@@ -87,7 +87,7 @@ public class LonginController {
             return "admin/login";
         }else {
             session.setAttribute(LOGIN_TYPE,LoginTypeEnum.PAGE);
-            return "login";
+            return "admin/login";
         }
     }
 
@@ -102,7 +102,7 @@ public class LonginController {
             session.setAttribute("icon",StringUtils.isBlank(principal.getIcon()) ? "/static/admin/img/face.jpg" : principal.getIcon());
             return "admin/index";
         }else {
-            return "index";
+            return "admin/index";
         }
 
     }
