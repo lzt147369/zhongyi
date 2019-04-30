@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>注册 - layuiAdmin</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/static/layuiadmin/style/login.css" media="all">
+</head>
+<body>
+
+
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>中一云平台</h2>
+            <p>从不被跟随到被跟随</p>
+        </div>
+
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone"
+                       for="LAY-user-login-cellphone"></label>
+                <input type="text" name="mobile" id="LAY-user-login-cellphone" lay-verify="phone" lay-vertype="tips" placeholder="手机"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-xs7">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"
+                               for="LAY-user-login-vercode"></label>
+                        <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" lay-vertype="tips"
+                               placeholder="验证码" class="layui-input">
+                    </div>
+                    <div class="layui-col-xs5">
+                        <div style="margin-left: 10px;">
+                            <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" id="getsmscode"
+                                    onclick="sendMessage()">获取验证码
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                       for="LAY-user-login-password"></label>
+                <input type="password" name="password" id="LAY-user-login-password" lay-vertype="tips"   placeholder="密码" lay-verify="pass"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                       for="LAY-user-login-repass"></label>
+                <input type="password" name="repass" id="LAY-user-login-repass" lay-vertype="tips"  lay-verify="required" placeholder="确认密码"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username"
+                       for="LAY-user-login-nickname"></label>
+                <input type="text" name="nickname" id="LAY-user-login-nickname" lay-vertype="tips"  lay-verify="required" placeholder="昵称"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <input type="checkbox" name="agreement" lay-skin="primary"  id="agreement" title="同意用户协议" checked>
+
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-reg-submit">注 册</button>
+            </div>
+        </div>
+
+            <div class="layui-trans layui-form-item layadmin-user-login-other">
+                <!--                <label>社交账号注册</label>-->
+                <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>-->
+                <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>-->
+                <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>-->
+
+                <a href="/toLogin" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
+                <!--                <a href="login.html" class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-trans layadmin-user-login-footer">
+
+        <p>© 2018 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>
+        <p>
+            <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
+            <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>
+            <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>
+        </p>
+    </div>
+
+</div>
+
+<script src="/static/layui/layui.js"></script>
+
+<script>
+    var layer;
+    var $;
+    var InterValObj; //timer变量，控制时间
+    var count = 120; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+    var form;
+    layui.use(['form', 'layer'], function () {
+        layer = parent.layer === undefined ? layui.layer : parent.layer;
+        $ = layui.jquery;
+        form = layui.form;
+        form.on('submit(LAY-user-reg-submit)', function(obj){
+            var field = obj.field;
+            var phone = $("#LAY-user-login-cellphone").val();
+            var vercode = $("#LAY-user-login-vercode").val();
+            var password = $("#LAY-user-login-password").val();
+            var repass = $("#LAY-user-login-repass").val();
+            var nickname = $("#LAY-user-login-nickname").val();
+            if (phone == '' || !(/^1(3|4|5|7|8|9)\d{9}$/.test(phone))) {
+                layer.msg('请检查手机号格式', {
+                    offset: '15px'
+                    , icon: 5
+                });
+                return false;
+            }
+
+            //确认密码
+            if(field.password !== field.repass){
+                return layer.msg('两次密码输入不一致');
+            }
+
+
+            //是否同意用户协议
+            if(!field.agreement){
+                return layer.msg('你必须同意用户协议才能注册');
+            }
+
+
+
+            $.ajax({
+                url: '/register/submit',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    phone: phone,
+                    vercode:vercode,
+                    password:password,
+                    repass:repass,
+                    nickname:nickname
+
+
+                },
+                success: function (rs) {
+                    if (rs.code == 3) {
+                        layer.msg(rs.msg, {
+                            offset: '15px'
+                            ,icon: 1
+                            ,time: 3000
+                        }, function(){
+                            location.href = "/toLogin";
+                        });
+
+                    }else{
+                        layer.msg(rs.msg, {
+                            offset: '15px'
+                            , icon: 5
+                        });
+
+                    }
+
+
+                }
+            });
+
+
+
+
+        })
+    })
+
+    function sendMessage() {
+
+        var phone = $("#LAY-user-login-cellphone").val();
+
+        if (phone == '' || !(/^1(3|4|5|7|8|9)\d{9}$/.test(phone))) {
+            layer.msg('请检查手机号格式', {
+                offset: '15px'
+                , icon: 5
+            });
+            return false;
+        }
+
+        $.ajax({
+            url: '/register/verifyMobile/1',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                phone: phone
+            },
+            success: function (rs) {
+                console.log(rs)
+                if (rs.code == 3) {
+                    curCount = count;
+                    //设置button效果，开始计时
+                    $("#getsmscode").addClass("layui-btn-disabled").attr("disabled",true)
+                    $("#getsmscode").text("重新获取" + "(" + curCount + "s)");
+                    InterValObj = setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                    layer.msg(rs.msg, {
+                        offset: '15px'
+                        , icon: 1
+                    });
+                }else{
+                    layer.msg(rs.msg, {
+                        offset: '15px'
+                        , icon: 5
+                    })
+
+                }
+
+
+
+
+            }
+        });
+        //timer处理函数
+        function SetRemainTime() {
+            if (curCount == 0) {
+                window.clearInterval(InterValObj);//停止计时器
+                $("#getsmscode").removeClass("layui-btn-disabled").removeAttr('disabled',"true");
+                $("#getsmscode").text("重新获取验证码");
+            }
+            else {
+                curCount--;
+                $("#getsmscode").text( "重新获取"+"("+ curCount+"s)");
+            }
+        }
+
+
+    }
+
+   // 处理注册业务
+    form.on('submit(LAY-user-reg-submit)', function(obj){
+
+        //请求登入接口
+        alert()
+
+    });
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
