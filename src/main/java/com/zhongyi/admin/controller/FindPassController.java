@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 找回密码
+ */
 @Controller
 @RequestMapping("/findPass")
 public class FindPassController {
