@@ -17,7 +17,7 @@ public class ShowMenuVo {
 
     private Boolean spread = Boolean.FALSE;
 
-    private List<ShowMenuVo> children =  new ArrayList();
+    private List<ShowMenuVo> children = new ArrayList();
 
     public String getId() {
         return id;

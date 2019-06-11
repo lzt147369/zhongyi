@@ -14,7 +14,7 @@ public abstract class DataEntity<T extends Model> extends BaseEntity<T> {
     private static final long serialVersionUID = 1L;
 
     /**
-     *  创建者
+     * 创建者
      */
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     protected String createId;
@@ -46,7 +46,7 @@ public abstract class DataEntity<T extends Model> extends BaseEntity<T> {
     /**
      * 备注
      */
-    @TableField(strategy= FieldStrategy.IGNORED)
+    @TableField(strategy = FieldStrategy.IGNORED)
     protected String remarks;
 
     /**
@@ -60,8 +60,6 @@ public abstract class DataEntity<T extends Model> extends BaseEntity<T> {
      */
     @TableField(exist = false)
     protected User updateUser;
-
-
 
 
     public String getCreateId() {

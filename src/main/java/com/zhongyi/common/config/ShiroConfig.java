@@ -32,49 +32,48 @@ public class ShiroConfig {
     private Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
     @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("authRealm")AuthRealm authRealm){
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("authRealm") AuthRealm authRealm) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager(authRealm));
         bean.setSuccessUrl("/index");
         bean.setLoginUrl("/admin/login");
-        Map<String,Filter> map = new HashMap();
-        map.put("authc",new FormAuthenticationFilter());
+        Map<String, Filter> map = new HashMap();
+        map.put("authc", new FormAuthenticationFilter());
         bean.setFilters(map);
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap();
-        filterChainDefinitionMap.put("/","anon");
-        filterChainDefinitionMap.put("/static/**","anon");
-        filterChainDefinitionMap.put("/admin","anon");
-        filterChainDefinitionMap.put("/admin/index","anon");
-         //  注册
-        filterChainDefinitionMap.put("/register/index","anon");
-        filterChainDefinitionMap.put("/register/submit","anon");
-        filterChainDefinitionMap.put("/register/verifyMobile/1","anon");
+        filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/admin", "anon");
+        filterChainDefinitionMap.put("/admin/index", "anon");
+        //  注册
+        filterChainDefinitionMap.put("/register/index", "anon");
+        filterChainDefinitionMap.put("/register/submit", "anon");
+        filterChainDefinitionMap.put("/register/verifyMobile/1", "anon");
         //  注册
 
         //忘记密码
-        filterChainDefinitionMap.put("/findPass/index","anon");
-        filterChainDefinitionMap.put("/findPass/resetpass","anon");
-        filterChainDefinitionMap.put("/findPass/verifyMobile/2","anon");
-        filterChainDefinitionMap.put("/findPass/find","anon");
-        filterChainDefinitionMap.put("/findPass/resetpass/index","anon");
-
+        filterChainDefinitionMap.put("/findPass/index", "anon");
+        filterChainDefinitionMap.put("/findPass/resetpass", "anon");
+        filterChainDefinitionMap.put("/findPass/verifyMobile/2", "anon");
+        filterChainDefinitionMap.put("/findPass/find", "anon");
+        filterChainDefinitionMap.put("/findPass/resetpass/index", "anon");
 
 
         //忘记密码
-        filterChainDefinitionMap.put("/admin/login","anon");
-        filterChainDefinitionMap.put("/toLogin","anon");
-        filterChainDefinitionMap.put("/getCaptcha","anon");
-        filterChainDefinitionMap.put("/anonCtrl/","anon");
-        filterChainDefinitionMap.put("/sysRole/test","anon");
-        filterChainDefinitionMap.put("/systemLogout","authc");
-        filterChainDefinitionMap.put("/**","authc");
+        filterChainDefinitionMap.put("/admin/login", "anon");
+        filterChainDefinitionMap.put("/toLogin", "anon");
+        filterChainDefinitionMap.put("/getCaptcha", "anon");
+        filterChainDefinitionMap.put("/anonCtrl/", "anon");
+        filterChainDefinitionMap.put("/sysRole/test", "anon");
+        filterChainDefinitionMap.put("/systemLogout", "authc");
+        filterChainDefinitionMap.put("/**", "authc");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
 
     @Bean
-    public SecurityManager securityManager(@Qualifier("authRealm")AuthRealm authRealm){
+    public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm) {
         logger.info("- - - - - - -shiro开始加载- - - - - - ");
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(authRealm);
@@ -90,7 +89,7 @@ public class ShiroConfig {
      * 需要注入安全管理器：securityManager
      */
     @Bean
-    public EhCacheManager cacheManager(){
+    public EhCacheManager cacheManager() {
         EhCacheManager cacheManager = new EhCacheManager();
         cacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
         return cacheManager;
@@ -98,7 +97,7 @@ public class ShiroConfig {
 
 
     @Bean
-    public CookieRememberMeManager rememberMeManager(){
+    public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager rememberMeManager = new CookieRememberMeManager();
         rememberMeManager.setCookie(rememberMeCookie());
         rememberMeManager.setCipherKey(Base64.decode("2AvVhdsgUs0FSA3SDFAdag=="));
@@ -106,7 +105,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public SimpleCookie rememberMeCookie(){
+    public SimpleCookie rememberMeCookie() {
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie cookie = new SimpleCookie("rememberMe");
         cookie.setHttpOnly(true);
@@ -116,7 +115,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public SessionManager webSessionManager(){
+    public SessionManager webSessionManager() {
         DefaultWebSessionManager manager = new DefaultWebSessionManager();
         //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
         manager.setGlobalSessionTimeout(60 * 60 * 1000);
@@ -129,22 +128,22 @@ public class ShiroConfig {
      * AOP式方法级权限检查
      */
     @Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
         creator.setProxyTargetClass(true);
         return creator;
     }
 
     /**
-     *  保证实现了Shiro内部lifecycle函数的bean执行
+     * 保证实现了Shiro内部lifecycle函数的bean执行
      */
     @Bean
-    public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+    public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("authRealm")AuthRealm authRealm) {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("authRealm") AuthRealm authRealm) {
         SecurityManager manager = securityManager(authRealm);
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(manager);

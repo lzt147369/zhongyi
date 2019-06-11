@@ -22,11 +22,11 @@ public class UploadServiceImpl implements UploadService {
         byte[] data = file.getBytes();
         Rescource rescource = new Rescource();
         QueryWrapper<Rescource> wrapper = new QueryWrapper<>();
-        String hash = FileUtil.calcETag(file.getInputStream(),file.getSize());
-        wrapper.eq("hash",hash);
-        wrapper.eq("source","local");
+        String hash = FileUtil.calcETag(file.getInputStream(), file.getSize());
+        wrapper.eq("hash", hash);
+        wrapper.eq("source", "local");
         rescource = rescource.selectOne(wrapper);
-        if( rescource!= null){
+        if (rescource != null) {
             return rescource.getWebUrl();
         }
         String extName = file.getOriginalFilename().substring(
@@ -36,17 +36,17 @@ public class UploadServiceImpl implements UploadService {
         StringBuffer sb = new StringBuffer(ResourceUtils.getURL("classpath:").getPath());
         String filePath = sb.append("static/upload/").toString();
         File targetFile = new File(filePath);
-        if(!targetFile.exists()){
+        if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
-        FileOutputStream out = new FileOutputStream(filePath+fileName);
+        FileOutputStream out = new FileOutputStream(filePath + fileName);
         out.write(data);
         out.flush();
         out.close();
-        String webUrl = "/static/upload/"+fileName;
+        String webUrl = "/static/upload/" + fileName;
         rescource = new Rescource();
         rescource.setFileName(fileName);
-        rescource.setFileSize(new java.text.DecimalFormat("#.##").format(file.getSize()/1024)+"kb");
+        rescource.setFileSize(new java.text.DecimalFormat("#.##").format(file.getSize() / 1024) + "kb");
         rescource.setHash(hash);
         rescource.setFileType(contentType);
         rescource.setWebUrl(webUrl);

@@ -10,9 +10,9 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
-        <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
-        <link rel="stylesheet" th:href="@{/static/admin/css/list.css}" media="all" />
+        <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+        <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
+        <link rel="stylesheet" th:href="@{/static/admin/css/list.css}" media="all"/>
     </head>
     <body class="childrenBody">
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -24,28 +24,41 @@
             <div class="layui-col-xs12">
                 <blockquote class="layui-elem-quote">
                     <div class="layui-inline">
-                        <a class="layui-btn" data-type="btnExpand"><i class="layui-icon">&#xe625;</i>全部展开</a>
+                        <a class="layui-btn" data-type="btnExpand"><i class="layui-icon">&#xe625;</i>全部展开
+                        </a>
                     </div>
                     <div class="layui-inline">
-                        <a class="layui-btn" data-type="btnFold"><i class="layui-icon">&#xe623;</i>全部折叠</a>
+                        <a class="layui-btn" data-type="btnFold"><i class="layui-icon">&#xe623;</i>全部折叠
+                        </a>
                     </div>
                     <shiro:hasPermission name="sys:menu:add">
-                    <div class="layui-inline">
-                        <a class="layui-btn layui-btn-normal" data-type="addMenu"><i class="layui-icon">&#xe654;</i>添加目录</a>
-                    </div>
+                        <div class="layui-inline">
+                            <a class="layui-btn layui-btn-normal" data-type="addMenu"><i class="layui-icon">&#xe654;</i>
+                                添加目录
+                            </a>
+                        </div>
                     </shiro:hasPermission>
                 </blockquote>
                 <div class="layui-form">
                     <table id="authTable" class="layui-table" lay-filter="authList"></table>
                     <script type="text/html" id="authBar">
                         <shiro:hasPermission name="sys:menu:add">
-                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="addChildMenu"><i class="layui-icon">&#xe654;</i> 添加子菜单</a>
+                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="addChildMenu">
+                                <i class="layui-icon">&#xe654;</i>
+                                添加子菜单
+                            </a>
                         </shiro:hasPermission>
                         <shiro:hasPermission name="sys:menu:edit">
-                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="editChildMenu"><i class="layui-icon">&#xe642;</i> 编辑 </a>
+                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="editChildMenu">
+                                <i class="layui-icon">&#xe642;</i>
+                                编辑
+                            </a>
                         </shiro:hasPermission>
                         <shiro:hasPermission name="sys:menu:add">
-                            <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delMenu"><i class="layui-icon">&#xe640;</i> 删除</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delMenu">
+                                <i class="layui-icon">&#xe640;</i>
+                                删除
+                            </a>
                         </shiro:hasPermission>
                     </script>
                 </div>
@@ -55,6 +68,6 @@
         <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
         <script type="text/javascript" th:src="@{/static/admin/js/tools.js}"></script>
         <script type="text/javascript" th:src="@{/static/admin/js/menu/menuList.js}"></script>
-        <script> </script>
+        <script></script>
     </body>
 </html>

@@ -3,6 +3,7 @@ package com.zhongyi.common.util;
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsSingleSend;
+import com.zhongyi.common.base.ApiResponse;
 
 import java.util.Map;
 
@@ -12,7 +13,6 @@ import java.util.Map;
  * @author zhouxing
  */
 public class JavaSmsApi {
-
 
 
     private static String apiKey;
@@ -40,14 +40,14 @@ public class JavaSmsApi {
 
     public static Integer random() {
 
-        return ((int)((Math.random()*9+1)*1000));
+        return ((int) ((Math.random() * 9 + 1) * 1000));
     }
 
-    public static Msg send(String phone) {
+    public static ApiResponse send(String phone) {
 
         Integer code = random();
 
-        Msg msg = new Msg();
+        ApiResponse msg = new ApiResponse();
 
         Map<String, String> param = getInstance().newParam(2);
         param.put(YunpianClient.MOBILE, phone);

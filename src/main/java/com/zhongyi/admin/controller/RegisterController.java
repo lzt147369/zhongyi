@@ -5,11 +5,11 @@ import com.zhongyi.admin.entity.Role;
 import com.zhongyi.admin.entity.User;
 import com.zhongyi.admin.service.RoleService;
 import com.zhongyi.admin.service.UserService;
+import com.zhongyi.common.base.ApiResponse;
 import com.zhongyi.common.config.redisConfig.RedisUtil;
 import com.zhongyi.common.util.CheckPhone;
 import com.zhongyi.common.util.Constants;
 import com.zhongyi.common.util.JavaSmsApi;
-import com.zhongyi.common.util.Msg;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,11 +48,11 @@ public class RegisterController {
     @RequestMapping("submit")
     @ResponseBody
     //phone+vercode+password+repass+nickname
-    public Msg submit(String phone, String vercode, String password, String repass, String nickname) {
+    public ApiResponse submit(String phone, String vercode, String password, String repass, String nickname) {
 
-        Msg msg = new Msg();
+        ApiResponse msg = new ApiResponse();
         //验证参数的有效性
-        if (!password.equals(repass)){
+        if (!password.equals(repass)) {
             msg.setCode(0);
             msg.setMsg("俩次输入的密码不一致");
             return msg;
@@ -137,8 +137,8 @@ public class RegisterController {
     //手机验证码业务 ---注册
     @RequestMapping("verifyMobile/1")
     @ResponseBody
-    public Msg sendCode(String phone) {
-        Msg msg = new Msg();
+    public ApiResponse sendCode(String phone) {
+        ApiResponse msg = new ApiResponse();
         //检查手机号是否合法
         boolean b = CheckPhone.isCellPhoneNo(phone);
         if (!b) {
@@ -154,7 +154,7 @@ public class RegisterController {
             return msg;
 
         }
-        Msg send = JavaSmsApi.send(phone);
+        ApiResponse send = JavaSmsApi.send(phone);
 
         if (send.getCode() == 0) {//短信接口调用成功
             msg.setCode(3);
@@ -171,10 +171,6 @@ public class RegisterController {
         return msg;
 
     }
-
-
-
-
 
 
 }

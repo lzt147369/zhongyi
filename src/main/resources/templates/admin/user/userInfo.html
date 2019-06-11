@@ -9,16 +9,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
 </head>
 <body class="childrenBody">
 <form class="layui-form">
     <div class="user_left">
-        <input class="layui-hide" name="id" th:value="${userinfo.id}" />
+        <input class="layui-hide" name="id" th:value="${userinfo.id}"/>
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${userinfo.loginName}" name="loginName" disabled class="layui-input layui-disabled">
+                <input type="text" th:value="${userinfo.loginName}" name="loginName" disabled
+                       class="layui-input layui-disabled">
             </div>
         </div>
         <div class="layui-form-item">
@@ -30,32 +31,37 @@
         <div class="layui-form-item">
             <label class="layui-form-label">用户角色</label>
             <div class="layui-input-block" th:each="item : ${userRole}">
-                <input type="checkbox"  disabled th:title="${item.name}" checked>
+                <input type="checkbox" disabled th:title="${item.name}" checked>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">手机号码</label>
-        <div class="layui-input-block">
-            <input type="tel" th:value="${userinfo.tel}" name="tel" placeholder="请输入手机号码" lay-verify="phone" class="layui-input userPhone">
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号码</label>
+            <div class="layui-input-block">
+                <input type="tel" th:value="${userinfo.tel}" name="tel" placeholder="请输入手机号码" lay-verify="phone"
+                       class="layui-input userPhone">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">邮箱</label>
-        <div class="layui-input-block">
-            <input type="text" th:value="${userinfo.email}" name="email" placeholder="请输入邮箱" lay-verify="email" class="layui-input userEmail">
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" th:value="${userinfo.email}" name="email" placeholder="请输入邮箱" lay-verify="email"
+                       class="layui-input userEmail">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">自我介绍</label>
-        <div class="layui-input-block">
-            <textarea placeholder="请输入内容" class="layui-textarea myself" name="remarks" th:value="${userinfo.remarks}"></textarea>
+        <div class="layui-form-item">
+            <label class="layui-form-label">自我介绍</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea myself" name="remarks"
+                          th:value="${userinfo.remarks}"></textarea>
+            </div>
         </div>
-    </div>
     </div>
     <div class="user_right">
-        <input type="hidden"  name="icon"  th:value="${userinfo.icon}" >
-        <button type="button" class="layui-btn layui-btn-normal" id="updateFace"><i class="layui-icon"></i>来来来，换个脸怎么样</button>
-        <img th:src="(${#strings.isEmpty(userinfo.icon)}) ? ${session.icon} : ${userinfo.icon}" class="layui-circle" th:id="userFace">
+        <input type="hidden" name="icon" th:value="${userinfo.icon}">
+        <button type="button" class="layui-btn layui-btn-normal" id="updateFace"><i class="layui-icon"></i>来来来，换个脸怎么样
+        </button>
+        <img th:src="(${#strings.isEmpty(userinfo.icon)}) ? ${session.icon} : ${userinfo.icon}" class="layui-circle"
+             th:id="userFace">
     </div>
     <div class="layui-form-item" style="margin-left: 5%;">
         <div class="layui-input-block">
@@ -66,7 +72,7 @@
 </form>
 <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
 <script>
-    layui.use(['form','jquery','layer','upload','laydate'],function() {
+    layui.use(['form', 'jquery', 'layer', 'upload', 'laydate'], function () {
         var form = layui.form,
             $ = layui.jquery,
             upload = layui.upload,
@@ -91,16 +97,16 @@
                 //如果上传失败
                 if (res.success === false) {
                     return layer.msg('上传失败');
-                }else{
-                    layer.msg("上传成功",{time:1000},function () {
+                } else {
+                    layer.msg("上传成功", {time: 1000}, function () {
                         $("input[name='icon']").val(res.data.url);
                     })
                 }
             }
         });
 
-        form.on("submit(changeUser)",function (data) {
-            if(data.field.id == null){
+        form.on("submit(changeUser)", function (data) {
+            if (data.field.id == null) {
                 layer.msg("用户ID不存在");
                 return false;
             }
@@ -110,21 +116,21 @@
 
             data.field.icon = $("input[name='icon']").val();
 
-            $.post("/admin/system/user/saveUserinfo",data.field,function(res){
+            $.post("/admin/system/user/saveUserinfo", data.field, function (res) {
                 layer.close(loadIndex);
-                if(res.success){
-                    parent.layer.msg("您的个人信息保存成功！",{time:1500},function(){
+                if (res.success) {
+                    parent.layer.msg("您的个人信息保存成功！", {time: 1500}, function () {
                         parent.location.reload();
                     });
-                }else{
+                } else {
                     layer.msg(res.message);
                 }
             });
             return false;
         });
 
-        $(".restuserinfo").on("click",function () {
-            layer.confirm('确定重置个人信息么?', {icon: 3, title:'提示'}, function(index){
+        $(".restuserinfo").on("click", function () {
+            layer.confirm('确定重置个人信息么?', {icon: 3, title: '提示'}, function (index) {
                 window.location.reload();
                 layer.close(index);
             });

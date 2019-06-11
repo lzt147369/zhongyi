@@ -24,35 +24,35 @@ public class MenuController {
 
     @GetMapping("list")
     @SysLog("跳转菜单列表")
-    public String list(){
+    public String list() {
         return "admin/menu/list";
     }
 
     @RequiresPermissions("sys:menu:list")
     @RequestMapping("treeList")
     @ResponseBody
-    public ResponseEntity treeList(){
+    public ResponseEntity treeList() {
         ResponseEntity responseEntity = ResponseEntity.success("操作成功");
-        responseEntity.setAny("code",0);
-        responseEntity.setAny("msg","");
-        responseEntity.setAny("count","");
+        responseEntity.setAny("code", 0);
+        responseEntity.setAny("msg", "");
+        responseEntity.setAny("count", "");
         HashMap map = new HashMap();
-        map.put("del_flag",false);
+        map.put("del_flag", false);
         List<Menu> menus = menuService.selectAllMenuList(map);
-        menus.forEach( menu -> {
-            if(StringUtils.isBlank(menu.getParentId())) {
+        menus.forEach(menu -> {
+            if (StringUtils.isBlank(menu.getParentId())) {
                 menu.setParentId("-1");
             }
         });
         menus.sort(Comparator.comparing(Menu::getSort));
-        return responseEntity.setAny("data",menus);
+        return responseEntity.setAny("data", menus);
     }
 
     @GetMapping("add")
-    public String add(@RequestParam(value = "parentId",required = false) String parentId, ModelMap modelMap){
-        if(parentId != null){
+    public String add(@RequestParam(value = "parentId", required = false) String parentId, ModelMap modelMap) {
+        if (parentId != null) {
             Menu menu = menuService.selectById(parentId);
-            modelMap.put("parentMenu",menu);
+            modelMap.put("parentMenu", menu);
         }
         return "admin/menu/add";
     }
@@ -61,40 +61,40 @@ public class MenuController {
     @PostMapping("add")
     @ResponseBody
     @SysLog("保存新增菜单数据")
-    public ResponseEntity add(Menu menu){
-        if(StringUtils.isBlank(menu.getName())){
+    public ResponseEntity add(Menu menu) {
+        if (StringUtils.isBlank(menu.getName())) {
             return ResponseEntity.failure("菜单名称不能为空");
         }
-        if(menuService.getCountByName(menu.getName())>0){
+        if (menuService.getCountByName(menu.getName()) > 0) {
             return ResponseEntity.failure("菜单名称已存在");
         }
-        if(StringUtils.isNotBlank(menu.getPermission())){
-            if(menuService.getCountByPermission(menu.getPermission())>0){
+        if (StringUtils.isNotBlank(menu.getPermission())) {
+            if (menuService.getCountByPermission(menu.getPermission()) > 0) {
                 return ResponseEntity.failure("权限标识已经存在");
             }
         }
-        if(menu.getParentId() == null){
+        if (menu.getParentId() == null) {
             menu.setLevel(1);
             menu.setSort(menuService.selectFirstLevelMenuMaxSort());
-        }else{
+        } else {
             Menu parentMenu = menuService.selectById(menu.getParentId());
-            if(parentMenu==null){
+            if (parentMenu == null) {
                 return ResponseEntity.failure("父菜单不存在");
             }
             menu.setParentIds(parentMenu.getParentIds());
-            menu.setLevel(parentMenu.getLevel()+1);
+            menu.setLevel(parentMenu.getLevel() + 1);
             menu.setSort(menuService.seleclMenuMaxSortByPArentId(menu.getParentId()));
         }
         menuService.saveOrUpdateMenu(menu);
-        menu.setParentIds(StringUtils.isBlank(menu.getParentIds()) ? menu.getId()+"," : menu.getParentIds() + menu.getId()+",");
+        menu.setParentIds(StringUtils.isBlank(menu.getParentIds()) ? menu.getId() + "," : menu.getParentIds() + menu.getId() + ",");
         menuService.saveOrUpdateMenu(menu);
         return ResponseEntity.success("操作成功");
     }
 
     @GetMapping("edit")
-    public String edit(String id,ModelMap modelMap){
+    public String edit(String id, ModelMap modelMap) {
         Menu menu = menuService.selectById(id);
-        modelMap.addAttribute("menu",menu);
+        modelMap.addAttribute("menu", menu);
         return "admin/menu/edit";
     }
 
@@ -102,27 +102,27 @@ public class MenuController {
     @PostMapping("edit")
     @ResponseBody
     @SysLog("保存编辑菜单数据")
-    public ResponseEntity edit(Menu menu){
-        if(StringUtils.isBlank(menu.getId())){
+    public ResponseEntity edit(Menu menu) {
+        if (StringUtils.isBlank(menu.getId())) {
             return ResponseEntity.failure("菜单ID不能为空");
         }
         if (StringUtils.isBlank(menu.getName())) {
             return ResponseEntity.failure("菜单名称不能为空");
         }
         Menu oldMenu = menuService.selectById(menu.getId());
-        if(!oldMenu.getName().equals(menu.getName())) {
-            if(menuService.getCountByName(menu.getName())>0){
+        if (!oldMenu.getName().equals(menu.getName())) {
+            if (menuService.getCountByName(menu.getName()) > 0) {
                 return ResponseEntity.failure("菜单名称已存在");
             }
         }
         if (StringUtils.isNotBlank(menu.getPermission())) {
-            if(!oldMenu.getPermission().equals(menu.getPermission())) {
+            if (!oldMenu.getPermission().equals(menu.getPermission())) {
                 if (menuService.getCountByPermission(menu.getPermission()) > 0) {
                     return ResponseEntity.failure("权限标识已经存在");
                 }
             }
         }
-        if(menu.getSort() == null){
+        if (menu.getSort() == null) {
             return ResponseEntity.failure("排序值不能为空");
         }
         menuService.saveOrUpdateMenu(menu);
@@ -133,8 +133,8 @@ public class MenuController {
     @PostMapping("delete")
     @ResponseBody
     @SysLog("删除菜单")
-    public ResponseEntity delete(@RequestParam(value = "id",required = false)String id){
-        if(StringUtils.isBlank(id)){
+    public ResponseEntity delete(@RequestParam(value = "id", required = false) String id) {
+        if (StringUtils.isBlank(id)) {
             return ResponseEntity.failure("菜单ID不能为空");
         }
         Menu menu = menuService.selectById(id);

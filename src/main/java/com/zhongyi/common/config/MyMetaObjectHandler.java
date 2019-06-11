@@ -19,14 +19,14 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         setFieldValByName("createDate", new Date(), metaObject);
-       // setFieldValByName("createId", MySysUser.id(), metaObject);
+        // setFieldValByName("createId", MySysUser.id(), metaObject);
         setFieldValByName("updateDate", new Date(), metaObject);
-       // setFieldValByName("updateId", MySysUser.id(), metaObject);
+        // setFieldValByName("updateId", MySysUser.id(), metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         setFieldValByName("updateDate", new Date(), metaObject);
-       // setFieldValByName("updateId", MySysUser.id(), metaObject);
+        // setFieldValByName("updateId", MySysUser.id(), metaObject);
     }
 }

@@ -16,7 +16,7 @@ import java.util.Properties;
 public class CaptchaConfig {
 
     @Bean(name = "captchaProducer")
-    public DefaultKaptcha getKaptchaBean(){
+    public DefaultKaptcha getKaptchaBean() {
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         Properties properties = new Properties();
         properties.setProperty(Constants.KAPTCHA_BORDER, "no");
@@ -25,7 +25,7 @@ public class CaptchaConfig {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "blue");
         properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "100");
         properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "40");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "0123456789");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "1");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "Consolas, Courier New");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "26");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");

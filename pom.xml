@@ -41,7 +41,6 @@
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-codec.version>1.11</commons-codec.version>
         <fastjson.version>1.2.41</fastjson.version>
-        <!--<jackson.version>2.9.0</jackson.version>-->
     </properties>
 
 
@@ -146,13 +145,13 @@
         </dependency>
 
         <!--shiro end-->
-<!--redis-->
+        <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-<!--        云片短信-->
+        <!--        云片短信-->
         <dependency>
             <groupId>com.yunpian.sdk</groupId>
             <artifactId>yunpian-java-sdk</artifactId>
@@ -169,7 +168,29 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--lombok注解-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--  Elasticsearch-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <!--  二维码-->
+        <!-- 二维码支持包 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.2.0</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.2.0</version>
+        </dependency>
 
 
     </dependencies>

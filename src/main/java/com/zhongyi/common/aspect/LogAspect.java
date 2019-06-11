@@ -31,7 +31,8 @@ public class LogAspect {
     private ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     @Pointcut("@annotation(com.zhongyi.common.annotation.SysLog)")
-    public void webLog(){}
+    public void webLog() {
+    }
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) {
@@ -45,7 +46,7 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
         for (int i = 0; i < args.length; i++) {
             Object o = args[i];
-            if(o instanceof ServletRequest || (o instanceof ServletResponse) || o instanceof MultipartFile){
+            if (o instanceof ServletRequest || (o instanceof ServletResponse) || o instanceof MultipartFile) {
                 args[i] = o.toString();
             }
         }
@@ -54,19 +55,19 @@ public class LogAspect {
         str = str.length() > 2000 ? str.substring(2000) : str;
         logger.info("params:======>" + str);
 
-        if(session != null){
+        if (session != null) {
             logger.info("session id :======>" + session.getId());
         }
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         SysLog mylog = method.getAnnotation(com.zhongyi.common.annotation.SysLog.class);
-        if(mylog != null){
+        if (mylog != null) {
             //注解上的描述
             logger.info("mylog:======>" + mylog.value());
         }
 
-        if(MySysUser.ShiroUser() != null) {
+        if (MySysUser.ShiroUser() != null) {
             String username = StringUtils.isNotBlank(MySysUser.nickName()) ? MySysUser.nickName() : MySysUser.loginName();
             logger.info("user:======>" + username);
         }
@@ -85,7 +86,7 @@ public class LogAspect {
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) {
-        if(MySysUser.ShiroUser() != null) {
+        if (MySysUser.ShiroUser() != null) {
             String username = StringUtils.isNotBlank(MySysUser.nickName()) ? MySysUser.nickName() : MySysUser.loginName();
             logger.info("user:======>" + username);
         }

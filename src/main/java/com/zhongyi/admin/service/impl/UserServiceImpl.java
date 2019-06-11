@@ -20,22 +20,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User findUserByLoginName(String name) {
-        Map<String,Object> map = new HashMap();
+        Map<String, Object> map = new HashMap();
         map.put("loginName", name);
         return baseMapper.selectUserByMap(map);
     }
 
     @Override
     public User findUserById(String id) {
-        Map<String,Object> map = new HashMap();
+        Map<String, Object> map = new HashMap();
         map.put("id", id);
         return baseMapper.selectUserByMap(map);
     }
 
     @Override
-    public int  userCount(String param) {
+    public int userCount(String param) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("login_name",param).or().eq("email",param).or().eq("tel",param);
+        wrapper.eq("login_name", param).or().eq("email", param).or().eq("tel", param);
         int count = baseMapper.selectCount(wrapper);
         return count;
     }
@@ -43,7 +43,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveUserRoles(String id, Set<Role> roleSet) {
-        baseMapper.saveUserRoles(id,roleSet);
+        baseMapper.saveUserRoles(id, roleSet);
     }
 
     @Override

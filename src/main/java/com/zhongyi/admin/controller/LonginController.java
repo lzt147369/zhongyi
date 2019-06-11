@@ -57,7 +57,7 @@ public class LonginController {
     MenuService menuService;
 
     public enum LoginTypeEnum {
-        PAGE,ADMIN;
+        PAGE, ADMIN;
     }
 
     @GetMapping(value = "")
@@ -65,11 +65,11 @@ public class LonginController {
         return "redirect:admin";
     }
 
-    @GetMapping(value = {"admin","admin/index"})
+    @GetMapping(value = {"admin", "admin/index"})
     public String adminIndex(RedirectAttributes attributes, ModelMap map) {
         Subject s = SecurityUtils.getSubject();
         attributes.addFlashAttribute(LOGIN_TYPE, LoginTypeEnum.ADMIN);
-        if(s.isAuthenticated()) {
+        if (s.isAuthenticated()) {
             return "redirect:index";
         }
         return "redirect:toLogin";
@@ -77,16 +77,16 @@ public class LonginController {
 
     @GetMapping(value = "toLogin")
     public String adminToLogin(HttpSession session, @ModelAttribute(LOGIN_TYPE) String loginType) {
-        if(StringUtils.isBlank(loginType)) {
+        if (StringUtils.isBlank(loginType)) {
             LoginTypeEnum attribute = (LoginTypeEnum) session.getAttribute(LOGIN_TYPE);
             loginType = attribute == null ? loginType : attribute.name();
         }
 
-        if(LoginTypeEnum.ADMIN.name().equals(loginType)) {
-            session.setAttribute(LOGIN_TYPE,LoginTypeEnum.ADMIN);
+        if (LoginTypeEnum.ADMIN.name().equals(loginType)) {
+            session.setAttribute(LOGIN_TYPE, LoginTypeEnum.ADMIN);
             return "admin/login";
-        }else {
-            session.setAttribute(LOGIN_TYPE,LoginTypeEnum.PAGE);
+        } else {
+            session.setAttribute(LOGIN_TYPE, LoginTypeEnum.PAGE);
             return "admin/login";
 
         }
@@ -94,15 +94,15 @@ public class LonginController {
 
     @GetMapping(value = "index")
     public String index(HttpSession session, @ModelAttribute(LOGIN_TYPE) String loginType) {
-        if(StringUtils.isBlank(loginType)) {
+        if (StringUtils.isBlank(loginType)) {
             LoginTypeEnum attribute = (LoginTypeEnum) session.getAttribute(LOGIN_TYPE);
             loginType = attribute == null ? loginType : attribute.name();
         }
-        if(LoginTypeEnum.ADMIN.name().equals(loginType)) {
+        if (LoginTypeEnum.ADMIN.name().equals(loginType)) {
             AuthRealm.ShiroUser principal = (AuthRealm.ShiroUser) SecurityUtils.getSubject().getPrincipal();
-            session.setAttribute("icon",StringUtils.isBlank(principal.getIcon()) ? "/static/admin/img/face.jpg" : principal.getIcon());
+            session.setAttribute("icon", StringUtils.isBlank(principal.getIcon()) ? "/static/admin/img/face.jpg" : principal.getIcon());
             return "admin/index";
-        }else {
+        } else {
             return "admin/index";
         }
 
@@ -133,52 +133,52 @@ public class LonginController {
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("rememberMe");
         String code = request.getParameter("code");
-        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             return ResponseEntity.failure("用户名或者密码不能为空");
-        }else if(StringUtils.isBlank(code)){
+        } else if (StringUtils.isBlank(code)) {
             return ResponseEntity.failure("验证码不能为空");
         }
         HttpSession session = request.getSession();
-        if(session == null){
+        if (session == null) {
             return ResponseEntity.failure("session超时");
         }
-        String trueCode = (String)session.getAttribute(Constants.VALIDATE_CODE);
-        if(StringUtils.isBlank(trueCode)){
+        String trueCode = (String) session.getAttribute(Constants.VALIDATE_CODE);
+        if (StringUtils.isBlank(trueCode)) {
             return ResponseEntity.failure("验证码超时");
         }
-        if(StringUtils.isBlank(code) || !trueCode.toLowerCase().equals(code.toLowerCase())){
+        if (StringUtils.isBlank(code) || !trueCode.toLowerCase().equals(code.toLowerCase())) {
             return ResponseEntity.failure("验证码错误");
-        }else {
+        } else {
             /*当前用户*/
             String errorMsg = null;
             Subject user = SecurityUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(username,password,Boolean.valueOf(rememberMe));
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password, Boolean.valueOf(rememberMe));
             try {
                 user.login(token);
-                LOGGER.debug(username+"用户"+LocalDate.now().toString()+":======》登陆系统!");
-            }catch (IncorrectCredentialsException e) {
+                LOGGER.debug(username + "用户" + LocalDate.now().toString() + ":======》登陆系统!");
+            } catch (IncorrectCredentialsException e) {
                 errorMsg = "用户名密码错误!";
-            }catch (UnknownAccountException e) {
+            } catch (UnknownAccountException e) {
                 errorMsg = "账户不存在!";
-            }catch (LockedAccountException e) {
+            } catch (LockedAccountException e) {
                 errorMsg = "账户已被锁定!";
-            }catch (UserTypeAccountException e) {
+            } catch (UserTypeAccountException e) {
                 errorMsg = "账户不是管理用户!";
             }
 
-            if(StringUtils.isBlank(errorMsg)) {
+            if (StringUtils.isBlank(errorMsg)) {
                 ResponseEntity responseEntity = new ResponseEntity();
                 responseEntity.setSuccess(Boolean.TRUE);
-                responseEntity.setAny("url","index");
+                responseEntity.setAny("url", "index");
                 return responseEntity;
-            }else {
+            } else {
                 return ResponseEntity.failure(errorMsg);
             }
         }
     }
 
     @GetMapping("admin/main")
-    public String main(){
+    public String main() {
         return "admin/main";
     }
 
@@ -188,7 +188,7 @@ public class LonginController {
      */
     @GetMapping("/admin/user/getUserMenu")
     @ResponseBody
-    public List<ShowMenuVo> getUserMenu(){
+    public List<ShowMenuVo> getUserMenu() {
         String userId = MySysUser.id();
         List<ShowMenuVo> list = menuService.getShowMenuByUser(userId);
         return list;
@@ -196,7 +196,7 @@ public class LonginController {
 
     @GetMapping("systemLogout")
     @SysLog("退出系统")
-    public String logOut(){
+    public String logOut() {
         SecurityUtils.getSubject().logout();
         return "redirect:admin";
     }

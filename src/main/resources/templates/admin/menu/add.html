@@ -10,25 +10,36 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
-        <link rel="stylesheet" th:href="@{/static/colorpicker/colpick.css}" media="all" />
+        <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
+        <link rel="stylesheet" th:href="@{/static/colorpicker/colpick.css}" media="all"/>
         <style type="text/css">
-            .layui-form-item .layui-inline{ width:33.333%; float:left; margin-right:0; }
-            @media(max-width:1240px){
-                .layui-form-item .layui-inline{ width:100%; float:none; }
+            .layui-form-item .layui-inline {
+                width: 33.333%;
+                float: left;
+                margin-right: 0;
             }
+
+            @media (max-width: 1240px) {
+                .layui-form-item .layui-inline {
+                    width: 100%;
+                    float: none;
+                }
+            }
+
             .layui-form-item .role-box {
                 position: relative;
             }
+
             .layui-form-item .role-box .jq-role-inline {
                 height: 100%;
                 overflow: auto;
             }
+
             .color-box {
-                float:left;
-                width:30px;
-                height:30px;
-                margin:5px;
+                float: left;
+                width: 30px;
+                height: 30px;
+                margin: 5px;
                 border: 1px solid white;
             }
         </style>
@@ -39,7 +50,9 @@
                 <label class="layui-form-label">父菜单名称</label>
                 <div class="layui-input-block">
                     <select name="parentId" class="layui-input">
-                        <option th:value="${parentMenu.id}"> <span th:text="${parentMenu.name}"></span></option>
+                        <option th:value="${parentMenu.id}">
+                            <span th:text="${parentMenu.name}"></span>
+                        </option>
                     </select>
                 </div>
             </div>
@@ -52,26 +65,26 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">菜单背景色</label>
                 <div class="layui-input-block">
-                    <input type="hidden" class="layui-input" name="bgColor" >
+                    <input type="hidden" class="layui-input" name="bgColor">
                     <div class="color-box"></div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">菜单地址</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="href"  placeholder="请输入菜单地址">
+                    <input type="text" class="layui-input" name="href" placeholder="请输入菜单地址">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">菜单权限</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="permission"  placeholder="菜单权限">
+                    <input type="text" class="layui-input" name="permission" placeholder="菜单权限">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">菜单图标</label>
                 <div class="layui-input-block">
-                    <input type="hidden" class="layui-input" name="icon" id="iconValue"  placeholder="请选择菜单图标">
+                    <input type="hidden" class="layui-input" name="icon" id="iconValue" placeholder="请选择菜单图标">
                     <div class="layui-input-inline" style="width: 100px;">
                         <i class="layui-icon" id="realIcon" style="display: none;font-size: 50px"></i>
                     </div>
@@ -81,18 +94,18 @@
                 </div>
             </div>
             <shiro:hasPermission name="sys:menu:add">
-            <div class="layui-form-item">
-                <label class="layui-form-label">左侧菜单栏是否显示</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" name="isShow" lay-skin="switch"    lay-text="是|否" checked>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">左侧菜单栏是否显示</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="isShow" lay-skin="switch" lay-text="是|否" checked>
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="addMenu">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="addMenu">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
                 </div>
-            </div>
             </shiro:hasPermission>
         </form>
         <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>

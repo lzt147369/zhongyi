@@ -4,14 +4,14 @@ import java.util.HashMap;
 
 public class ResponseEntity extends HashMap<String, Object> {
 
-    public static ResponseEntity success(String message){
+    public static ResponseEntity success(String message) {
         ResponseEntity response = new ResponseEntity();
         response.setSuccess(Boolean.TRUE);
         response.setMessage(message);
         return response;
     }
 
-    public static ResponseEntity failure(String message){
+    public static ResponseEntity failure(String message) {
         ResponseEntity response = new ResponseEntity();
         response.setSuccess(Boolean.FALSE);
         response.setMessage(message);

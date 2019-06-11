@@ -11,9 +11,9 @@ public interface MenuService extends IService<Menu> {
 
     List<ShowMenuVo> getShowMenuByUser(String userId);
 
-    List<Menu> selectAllMenus(Map<String,Object> map);
+    List<Menu> selectAllMenus(Map<String, Object> map);
 
-    List<Menu> selectAllMenuList(Map<String,Object> map);
+    List<Menu> selectAllMenuList(Map<String, Object> map);
 
     Menu selectById(String parentId);
 

@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>注册 - layuiAdmin</title>
+    <title>中一模拟</title>
+    <link rel="shortcut icon" href="//16826213.s21i.faiusr.com/5/ABUIABAFGAAgkMvX2AUo5syZ6gEwQDhA.ico"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -25,7 +26,8 @@
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone"
                        for="LAY-user-login-cellphone"></label>
-                <input type="text" name="mobile" id="LAY-user-login-cellphone" lay-verify="phone" lay-vertype="tips" placeholder="手机"
+                <input type="text" name="mobile" id="LAY-user-login-cellphone" lay-verify="phone" lay-vertype="tips"
+                       placeholder="手机"
                        class="layui-input">
             </div>
             <div class="layui-form-item">
@@ -33,7 +35,8 @@
                     <div class="layui-col-xs7">
                         <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"
                                for="LAY-user-login-vercode"></label>
-                        <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" lay-vertype="tips"
+                        <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required"
+                               lay-vertype="tips"
                                placeholder="验证码" class="layui-input">
                     </div>
                     <div class="layui-col-xs5">
@@ -48,23 +51,26 @@
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-password"
                        for="LAY-user-login-password"></label>
-                <input type="password" name="password" id="LAY-user-login-password" lay-vertype="tips"   placeholder="密码" lay-verify="pass"
+                <input type="password" name="password" id="LAY-user-login-password" lay-vertype="tips" placeholder="密码"
+                       lay-verify="pass"
                        class="layui-input">
             </div>
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-password"
                        for="LAY-user-login-repass"></label>
-                <input type="password" name="repass" id="LAY-user-login-repass" lay-vertype="tips"  lay-verify="required" placeholder="确认密码"
+                <input type="password" name="repass" id="LAY-user-login-repass" lay-vertype="tips" lay-verify="required"
+                       placeholder="确认密码"
                        class="layui-input">
             </div>
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-username"
                        for="LAY-user-login-nickname"></label>
-                <input type="text" name="nickname" id="LAY-user-login-nickname" lay-vertype="tips"  lay-verify="required" placeholder="昵称"
+                <input type="text" name="nickname" id="LAY-user-login-nickname" lay-vertype="tips" lay-verify="required"
+                       placeholder="昵称"
                        class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="checkbox" name="agreement" lay-skin="primary"  id="agreement" title="同意用户协议" checked>
+                <input type="checkbox" name="agreement" lay-skin="primary" id="agreement" title="同意用户协议" checked>
 
             </div>
             <div class="layui-form-item">
@@ -72,27 +78,27 @@
             </div>
         </div>
 
-            <div class="layui-trans layui-form-item layadmin-user-login-other">
-                <!--                <label>社交账号注册</label>-->
-                <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>-->
-                <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>-->
-                <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>-->
+        <div class="layui-trans layui-form-item layadmin-user-login-other">
+            <!--                <label>社交账号注册</label>-->
+            <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>-->
+            <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>-->
+            <!--                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>-->
 
-                <a href="/toLogin" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
-                <!--                <a href="login.html" class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>-->
-            </div>
+            <a href="/toLogin" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
+            <!--                <a href="login.html" class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>-->
         </div>
     </div>
+</div>
 
-    <div class="layui-trans layadmin-user-login-footer">
+<div class="layui-trans layadmin-user-login-footer">
 
-        <p>© 2018 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>
-        <p>
-            <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
-            <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>
-            <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>
-        </p>
-    </div>
+    <p>© 2018 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>
+    <p>
+        <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
+        <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>
+        <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>
+    </p>
+</div>
 
 </div>
 
@@ -109,7 +115,7 @@
         layer = parent.layer === undefined ? layui.layer : parent.layer;
         $ = layui.jquery;
         form = layui.form;
-        form.on('submit(LAY-user-reg-submit)', function(obj){
+        form.on('submit(LAY-user-reg-submit)', function (obj) {
             var field = obj.field;
             var phone = $("#LAY-user-login-cellphone").val();
             var vercode = $("#LAY-user-login-vercode").val();
@@ -125,16 +131,15 @@
             }
 
             //确认密码
-            if(field.password !== field.repass){
+            if (field.password !== field.repass) {
                 return layer.msg('两次密码输入不一致');
             }
 
 
             //是否同意用户协议
-            if(!field.agreement){
+            if (!field.agreement) {
                 return layer.msg('你必须同意用户协议才能注册');
             }
-
 
 
             $.ajax({
@@ -143,10 +148,10 @@
                 dataType: 'json',
                 data: {
                     phone: phone,
-                    vercode:vercode,
-                    password:password,
-                    repass:repass,
-                    nickname:nickname
+                    vercode: vercode,
+                    password: password,
+                    repass: repass,
+                    nickname: nickname
 
 
                 },
@@ -154,13 +159,13 @@
                     if (rs.code == 3) {
                         layer.msg(rs.msg, {
                             offset: '15px'
-                            ,icon: 1
-                            ,time: 3000
-                        }, function(){
+                            , icon: 1
+                            , time: 3000
+                        }, function () {
                             location.href = "/toLogin";
                         });
 
-                    }else{
+                    } else {
                         layer.msg(rs.msg, {
                             offset: '15px'
                             , icon: 5
@@ -171,8 +176,6 @@
 
                 }
             });
-
-
 
 
         })
@@ -202,14 +205,14 @@
                 if (rs.code == 3) {
                     curCount = count;
                     //设置button效果，开始计时
-                    $("#getsmscode").addClass("layui-btn-disabled").attr("disabled",true)
+                    $("#getsmscode").addClass("layui-btn-disabled").attr("disabled", true)
                     $("#getsmscode").text("重新获取" + "(" + curCount + "s)");
                     InterValObj = setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
                     layer.msg(rs.msg, {
                         offset: '15px'
                         , icon: 1
                     });
-                }else{
+                } else {
                     layer.msg(rs.msg, {
                         offset: '15px'
                         , icon: 5
@@ -218,38 +221,31 @@
                 }
 
 
-
-
             }
         });
+
         //timer处理函数
         function SetRemainTime() {
             if (curCount == 0) {
                 window.clearInterval(InterValObj);//停止计时器
-                $("#getsmscode").removeClass("layui-btn-disabled").removeAttr('disabled',"true");
+                $("#getsmscode").removeClass("layui-btn-disabled").removeAttr('disabled', "true");
                 $("#getsmscode").text("重新获取验证码");
-            }
-            else {
+            } else {
                 curCount--;
-                $("#getsmscode").text( "重新获取"+"("+ curCount+"s)");
+                $("#getsmscode").text("重新获取" + "(" + curCount + "s)");
             }
         }
 
 
     }
 
-   // 处理注册业务
-    form.on('submit(LAY-user-reg-submit)', function(obj){
+    // 处理注册业务
+    form.on('submit(LAY-user-reg-submit)', function (obj) {
 
         //请求登入接口
         alert()
 
     });
-
-
-
-
-
 
 
 </script>

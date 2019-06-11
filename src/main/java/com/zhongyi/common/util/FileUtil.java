@@ -10,8 +10,8 @@ public class FileUtil {
 
     private static final int CHUNK_SIZE = 1 << 22;
 
-    public static String calcETag(InputStream inputStream, long fileLength) throws IOException,NoSuchAlgorithmException {
-        String etag ;
+    public static String calcETag(InputStream inputStream, long fileLength) throws IOException, NoSuchAlgorithmException {
+        String etag;
         if (fileLength <= CHUNK_SIZE) {
             byte[] fileData = new byte[(int) fileLength];
             inputStream.read(fileData, 0, (int) fileLength);

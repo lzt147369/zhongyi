@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>忘记密码 - layuiAdmin</title>
+    <title>忘记密码 - 中一模拟</title>
+    <link rel="shortcut icon" href="//16826213.s21i.faiusr.com/5/ABUIABAFGAAgkMvX2AUo5syZ6gEwQDhA.ico"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -193,17 +194,17 @@
                 dataType: 'json',
                 data: {
                     password: password,
-                    repass:repass,
-                    phone:tel
+                    repass: repass,
+                    phone: tel
                 },
                 success: function (rs) {
                     console.log(rs)
                     if (rs.code == 3) {
                         layer.msg(rs.msg, {
                             offset: '15px'
-                            ,icon: 1
-                            ,time: 1000
-                        }, function(){
+                            , icon: 1
+                            , time: 1000
+                        }, function () {
                             location.href = '/'; //跳转到登入页
                         });
 
@@ -218,8 +219,6 @@
 
                 }
             });
-
-
 
 
             return false;

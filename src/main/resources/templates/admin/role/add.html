@@ -7,9 +7,14 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
     <style type="text/css">
-        .layui-form-item .layui-inline{ min-width:15%; float:left; margin-right:0; }
+        .layui-form-item .layui-inline {
+            min-width: 15%;
+            float: left;
+            margin-right: 0;
+        }
+
         .layui-form-item .role-box {
             position: relative;
         }
@@ -25,7 +30,8 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block" style="width: 80%">
-            <input type="text" class="layui-input" name="name" style="margin-top: 30px;" lay-verify="required" placeholder="请想一个角色名称">
+            <input type="text" class="layui-input" name="name" style="margin-top: 30px;" lay-verify="required"
+                   placeholder="请想一个角色名称">
         </div>
     </div>
     <div class="layui-form-item">
@@ -59,12 +65,12 @@
     </div>
 
     <shiro:hasPermission name="sys:role:add">
-    <div class="layui-form-item" style="padding-left: 30%;">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addRole">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        <div class="layui-form-item" style="padding-left: 30%;">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="addRole">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
         </div>
-    </div>
     </shiro:hasPermission>
 </form>
 <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>

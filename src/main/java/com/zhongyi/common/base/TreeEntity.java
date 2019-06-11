@@ -63,7 +63,7 @@ public abstract class TreeEntity<T extends Model> extends DataEntity<T> {
         this.level = level;
     }
 
-    @Length( max = 1000, message = "路径长度必须介于 1 和 1000 之间")
+    @Length(max = 1000, message = "路径长度必须介于 1 和 1000 之间")
     public String getParentIds() {
         return parentIds;
     }

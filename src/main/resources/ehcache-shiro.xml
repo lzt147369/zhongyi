@@ -50,7 +50,7 @@
            timeToIdleSeconds="1800"
            timeToLiveSeconds="1800"
            overflowToDisk="false"
-           diskPersistent="false" />
+           diskPersistent="false"/>
 
     <!-- 缓存一小时 -->
     <cache name="hour"
@@ -60,7 +60,7 @@
            timeToIdleSeconds="3600"
            timeToLiveSeconds="3600"
            overflowToDisk="false"
-           diskPersistent="false" />
+           diskPersistent="false"/>
 
     <!-- 缓存一天 -->
     <cache name="oneDay"
@@ -70,7 +70,7 @@
            timeToIdleSeconds="86400"
            timeToLiveSeconds="86400"
            overflowToDisk="false"
-           diskPersistent="false" />
+           diskPersistent="false"/>
 
     <!--
         name:缓存名称。

@@ -13,12 +13,12 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements RoleService {
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
     @Override
     public long getRoleNameCount(String name) {
         QueryWrapper<Role> wrapper = new QueryWrapper<>();
-        wrapper.eq("name",name);
+        wrapper.eq("name", name);
         return baseMapper.selectCount(wrapper);
     }
 
@@ -26,8 +26,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
     @Transactional(rollbackFor = Exception.class)
     public Role saveRole(Role role) {
         baseMapper.insert(role);
-        if(role.getMenuSet() != null && role.getMenuSet().size() > 0) {
-            baseMapper.saveRoleMenus(role.getId(),role.getMenuSet());
+        if (role.getMenuSet() != null && role.getMenuSet().size() > 0) {
+            baseMapper.saveRoleMenus(role.getId(), role.getMenuSet());
         }
         return role;
     }
@@ -42,7 +42,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
     public void updateRole(Role role) {
         baseMapper.updateById(role);
         baseMapper.dropRoleMenus(role.getId());
-        if(role.getMenuSet() != null && role.getMenuSet().size() > 0) {
+        if (role.getMenuSet() != null && role.getMenuSet().size() > 0) {
             baseMapper.saveRoleMenus(role.getId(), role.getMenuSet());
         }
     }
@@ -59,7 +59,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
     @Override
     public List<Role> selectAll() {
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("del_flag",false);
+        wrapper.eq("del_flag", false);
         return baseMapper.selectList(wrapper);
     }
 }

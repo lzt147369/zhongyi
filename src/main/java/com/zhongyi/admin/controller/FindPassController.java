@@ -2,6 +2,7 @@ package com.zhongyi.admin.controller;
 
 import com.zhongyi.admin.entity.User;
 import com.zhongyi.admin.service.UserService;
+import com.zhongyi.common.base.ApiResponse;
 import com.zhongyi.common.config.redisConfig.RedisUtil;
 import com.zhongyi.common.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,7 @@ public class FindPassController {
 
     @Autowired
     private RedisUtil redisUtil;
+
     //跳转到找回密码页面
     @RequestMapping("index")
     public String index() {
@@ -44,10 +46,10 @@ public class FindPassController {
     //重置密码
     @RequestMapping("resetpass")
     @ResponseBody
-    public  Msg resetpass(String password,String repass,String phone){
+    public ApiResponse resetpass(String password, String repass, String phone) {
 
-        Msg msg = new Msg();
-        if (!password.equals(repass)){
+        ApiResponse msg = new ApiResponse();
+        if (!password.equals(repass)) {
             msg.setCode(1);
             msg.setMsg("俩次输入密码不一致！");
         }
@@ -55,7 +57,7 @@ public class FindPassController {
         //修改密码
 
         User user = userService.findUserByLoginName(phone);
-        if (user==null){
+        if (user == null) {
             msg.setCode(2);
             msg.setMsg("此手机号未注册过");
             return msg;
@@ -72,8 +74,8 @@ public class FindPassController {
     //处理短信验证码，检查手机号是否存在
     @RequestMapping("verifyMobile/2")
     @ResponseBody
-    public Msg sendCode(String phone) {
-        Msg msg = new Msg();
+    public ApiResponse sendCode(String phone) {
+        ApiResponse msg = new ApiResponse();
         //检查手机号是否合法
         boolean b = CheckPhone.isCellPhoneNo(phone);
         if (!b) {
@@ -89,7 +91,7 @@ public class FindPassController {
             return msg;
 
         }
-        Msg send = JavaSmsApi.send(phone);
+        ApiResponse send = JavaSmsApi.send(phone);
 
         if (send.getCode() == 0) {//短信接口调用成功
             msg.setCode(3);
@@ -111,8 +113,8 @@ public class FindPassController {
     //  验证手机手机验证码是否正确，手机是否在数据库是否存在  图形验证码是否正确，手机验证码是否正确
     @RequestMapping("find")
     @ResponseBody
-    public Msg find(String phone,String vercode,String smscode,HttpServletRequest request){
-        Msg msg = new Msg();
+    public ApiResponse find(String phone, String vercode, String smscode, HttpServletRequest request) {
+        ApiResponse msg = new ApiResponse();
         //检查手机号是否合法
         boolean b = CheckPhone.isCellPhoneNo(phone);
         if (!b) {
@@ -130,14 +132,14 @@ public class FindPassController {
         }
         //检查图形验证码是否正确
         HttpSession session = request.getSession();
-        String trueCode = (String)session.getAttribute(Constants.VALIDATE_CODE);
-        if(StringUtils.isBlank(trueCode)){
+        String trueCode = (String) session.getAttribute(Constants.VALIDATE_CODE);
+        if (StringUtils.isBlank(trueCode)) {
             msg.setCode(2);
             msg.setMsg("图形验证码超时");
             return msg;
         }
 
-        if(StringUtils.isBlank(vercode) || !trueCode.toLowerCase().equals(vercode.toLowerCase())){
+        if (StringUtils.isBlank(vercode) || !trueCode.toLowerCase().equals(vercode.toLowerCase())) {
 
             msg.setCode(2);
             msg.setMsg("图形验证码错误");

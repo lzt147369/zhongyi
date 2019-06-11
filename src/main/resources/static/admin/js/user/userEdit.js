@@ -1,33 +1,33 @@
 var index = parent.layer.getFrameIndex(window.name); //当前窗口索引
-layui.use(['form','jquery','layer'],function(){
+layui.use(['form', 'jquery', 'layer'], function () {
     var form = layui.form,
-        $    = layui.jquery,
+        $ = layui.jquery,
         layer = layui.layer;
 
-    form.on("submit(editUser)",function(data){
-        if(data.field.id == null){
+    form.on("submit(editUser)", function (data) {
+        if (data.field.id == null) {
             layer.msg("用户ID不存在");
             return false;
         }
         //给角色赋值
         delete data.field["roles"];
         var selectRole = [];
-        $('input[name="roles"]:checked').each(function(){
-            selectRole.push({"id":$(this).val()});
+        $('input[name="roles"]:checked').each(function () {
+            selectRole.push({"id": $(this).val()});
         });
         data.field.roleLists = selectRole;
 
         //判断用户是否后台用户
-        if(undefined !== data.field.adminUser && null != data.field.adminUser){
+        if (undefined !== data.field.adminUser && null != data.field.adminUser) {
             data.field.adminUser = true;
-        }else{
+        } else {
             data.field.adminUser = false;
         }
 
         //判断用户是否启用
-        if(undefined !== data.field.locked && null != data.field.locked){
+        if (undefined !== data.field.locked && null != data.field.locked) {
             data.field.locked = false;
-        }else{
+        } else {
             data.field.locked = true;
         }
 
@@ -35,18 +35,18 @@ layui.use(['form','jquery','layer'],function(){
             shade: [0.3, '#333']
         });
         $.ajax({
-            type:"POST",
-            url:"/admin/system/user/edit",
-            dataType:"json",
-            contentType:"application/json",
-            data:JSON.stringify(data.field),
-            success:function(res){
+            type: "POST",
+            url: "/admin/system/user/edit",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(data.field),
+            success: function (res) {
                 layer.close(loadIndex);
-                if(res.success){
-                    parent.layer.msg("用户编辑成功！",{time:1500},function(){
+                if (res.success) {
+                    parent.layer.msg("用户编辑成功！", {time: 1500}, function () {
                         parent.location.reload();
                     });
-                }else{
+                } else {
                     layer.msg(res.message);
                 }
             }
@@ -55,13 +55,11 @@ layui.use(['form','jquery','layer'],function(){
     });
 
 
-
-
-    form.on('switch(adminUser)', function(data){
+    form.on('switch(adminUser)', function (data) {
         $("#adminUser").val(data.elem.checked);
     });
 
-    form.on('switch(locked)', function(data){
+    form.on('switch(locked)', function (data) {
         $("#locked").val(data.elem.checked);
     });
 

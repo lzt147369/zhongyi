@@ -23,14 +23,13 @@ public class Constants {
     public static final String VALIDATE_CODE = "validateCode";
 
     /**
-     *系统用户默认密码
+     * 系统用户默认密码
      */
     public static final String DEFAULT_PASSWORD = "123456";
 
 
     /**
      * 注册用户默认的角色
-     *
      */
     public static final String ZHUCE_USER_ROLE = "注册";
 

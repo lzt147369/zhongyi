@@ -1,0 +1,61 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <title>用户管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/layuiadmin/style/admin.css" media="all">
+</head>
+<body class="childrenBody">
+<form class="layui-form" style="width:80%;margin-top: 2%;">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">票编号</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="bianhao" name="bianhao" lay-verify="required" placeholder="请输入编号">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="submiterweima">生成二维码</button>
+        </div>
+    </div>
+    <div style="height: 200px;width: 200px;border: #00F7DE;" >
+        <img   id="ewmpng"/>
+    </div>
+</form>
+
+</div>
+
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+
+    layui.use(['form', 'jquery', 'layer'], function () {
+        var form = layui.form,
+            $ = layui.jquery,
+            layer = layui.layer;   //默认启用用户
+
+        form.on("submit(submiterweima)", function (data) {
+            var url = "/duqu?bianhao="+$("#bianhao").val();
+            $("#ewmpng").attr("src",url);
+
+
+
+            return false;
+
+        });
+
+
+    });
+
+</script>
+</body>
+</html>

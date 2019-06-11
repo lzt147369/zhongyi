@@ -4,15 +4,22 @@
 <head>
     <meta charset="utf-8">
     <title>中一云平台</title>
+    <link rel="shortcut icon" href="//16826213.s21i.faiusr.com/5/ABUIABAFGAAgkMvX2AUo5syZ6gEwQDhA.ico"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/static/layuiadmin/style/admin.css" media="all">
 
-    <script>
+   <style>
 
-    </script>
+
+
+
+
+
+   </style>
 </head>
 <body class="layui-layout-body">
 
@@ -27,7 +34,7 @@
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="http://www.layui.com/admin/" target="_blank" title="前台">
+                    <a href="http://www.baidu.com" target="_blank" title="前台">
                         <i class="layui-icon layui-icon-website"></i>
                     </a>
                 </li>
@@ -37,7 +44,8 @@
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords=">
+                    <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search"
+                           layadmin-event="serach" lay-action="search/list?keywords=">
                 </li>
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
@@ -67,18 +75,21 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite><shiro:principal property="nickName"></shiro:principal></cite>
+                        <cite>
+                            <shiro:principal property="nickName"></shiro:principal>
+                        </cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a lay-href="/admin/system/user/userinfo">基本资料</a></dd>
                         <dd><a lay-href="/admin/system/user/changePassword">修改密码</a></dd>
                         <hr>
-                        <dd  style="text-align: center;"><a th:href="@{/systemLogout}">退出</a></dd>
+                        <dd style="text-align: center;"><a th:href="@{/systemLogout}">退出</a></dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                    <a href="javascript:;" layadmin-event="about"><i
+                            class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
                 <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
                     <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
@@ -94,8 +105,9 @@
                 </div>
 
 
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-                <!-- 遍历菜单-->
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
+                    lay-filter="layadmin-system-side-menu">
+                    <!-- 遍历菜单-->
 
                 </ul>
             </div>
@@ -119,7 +131,8 @@
             </div>
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="/admin/main" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    <li lay-id="/admin/main" lay-attr="home/console.html" class="layui-this"><i
+                            class="layui-icon layui-icon-home"></i></li>
                 </ul>
             </div>
         </div>
@@ -128,7 +141,7 @@
         <!-- 主体内容 -->
         <div class="layui-body" id="LAY_app_body">
             <div class="layadmin-tabsbody-item layui-show">
-<!--                <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>-->
+                <!--                <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>-->
 
                 <iframe src="/admin/main" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
@@ -143,59 +156,50 @@
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 
 
-
 <script>
     $.ajax({
-        url:"/admin/user/getUserMenu",    //请求的url地址
-        dataType:"json",   //返回格式为json
-        async:false,//请求是否异步，默认为异步，这也是ajax重要特性
-        success:function(req){
+        url: "/admin/user/getUserMenu",    //请求的url地址
+        dataType: "json",   //返回格式为json
+        async: false,//请求是否异步，默认为异步，这也是ajax重要特性
+        success: function (req) {
             var html = navBar(req);
             $("#LAY-system-side-menu").html(html)
 
         }
     });
-    function navBar(strData){
+
+    function navBar(strData) {
         var data;
-        if(typeof(strData) == "string"){
+        if (typeof (strData) == "string") {
             var data = JSON.parse(strData); //部分用户解析出来的是字符串，转换一下
-        }else{
+        } else {
             data = strData;
         }
         console.log(strData);
         var ulHtml = '';
 
-            for (var i=0;i<data.length;i++) {
+        for (var i = 0; i < data.length; i++) {
 
-                    ulHtml += '<li class="layui-nav-item">';
+            ulHtml += '<li class="layui-nav-item">';
 
-                ulHtml+='<a href="javascript:;" lay-tips="'+data[i].title+'" lay-direction="2">';
-                ulHtml+=' <i class="'+data[i].icon+'"></i>';
-                ulHtml += '<cite>'+data[i].title+'</cite>';
-                ulHtml += '</a>';
+            ulHtml += '<a href="javascript:;" lay-tips="' + data[i].title + '" lay-direction="2">';
+         1
+            ulHtml += '<cite>' + data[i].title + '</cite>';
+            ulHtml += '</a>';
 
-                ulHtml += '<dl class="layui-nav-child">';
-                for(var j=0;j<data[i].children.length;j++){
-                    ulHtml += ' <dd >';
-                    ulHtml += ' <a lay-href="'+data[i].children[j].href+'">'+data[i].children[j].title+'</a>';
-
-                    ulHtml += ' </dd >';
-                }
-                ulHtml += ' </dl>';
-                ulHtml += '  </li>';
+            ulHtml += '<dl class="layui-nav-child">';
+            for (var j = 0; j < data[i].children.length; j++) {
+                ulHtml += ' <dd >';
+                ulHtml += ' <a lay-href="' + data[i].children[j].href + '">' + data[i].children[j].title + '</a>';
+                ulHtml += ' </dd >';
             }
+            ulHtml += ' </dl>';
+            ulHtml += '  </li>';
+        }
 
         return ulHtml;
 
     }
-
-
-
-
-
-
-
-
 
 
 </script>
@@ -210,13 +214,12 @@
 <!-- 百度统计 -->
 <script>
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
-
 
 
 </script>

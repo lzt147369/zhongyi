@@ -10,15 +10,25 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all"/>
     <style type="text/css">
-        .layui-form-item .layui-inline{ width:33.333%; float:left; margin-right:0; }
-        @media(max-width:1240px){
-            .layui-form-item .layui-inline{ width:100%; float:none; }
+        .layui-form-item .layui-inline {
+            width: 33.333%;
+            float: left;
+            margin-right: 0;
         }
+
+        @media (max-width: 1240px) {
+            .layui-form-item .layui-inline {
+                width: 100%;
+                float: none;
+            }
+        }
+
         .layui-form-item .role-box {
             position: relative;
         }
+
         .layui-form-item .role-box .jq-role-inline {
             height: 100%;
             overflow: auto;
@@ -59,7 +69,8 @@
                 <fieldset class="layui-elem-field">
                     <legend>选择角色</legend>
                     <div class="layui-field-box" th:each="role : ${roleList}">
-                        <input type="checkbox" name="roles"  th:value="${role.id}" th:title="${role.name}" lay-filter="role" />
+                        <input type="checkbox" name="roles" th:value="${role.id}" th:title="${role.name}"
+                               lay-filter="role"/>
                     </div>
                 </fieldset>
             </div>
@@ -70,24 +81,26 @@
         <div class="layui-inline">
             <label class="layui-form-label">用户类型</label>
             <div class="layui-input-block">
-                <input type="checkbox" th:id="adminUser"  name="adminUser" th:value="true" lay-filter="adminUser" lay-skin="switch" value="true"  lay-text="后台用户|前台用户" checked/>
+                <input type="checkbox" th:id="adminUser" name="adminUser" th:value="true" lay-filter="adminUser"
+                       lay-skin="switch" value="true" lay-text="后台用户|前台用户" checked/>
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">是否启用</label>
             <div class="layui-input-block">
-                <input type="checkbox" th:id="locked" name="locked" th:value="true" lay-skin="switch"  lay-filter="locked"  lay-text="启用|停用" checked>
+                <input type="checkbox" th:id="locked" name="locked" th:value="true" lay-skin="switch"
+                       lay-filter="locked" lay-text="启用|停用" checked>
             </div>
         </div>
     </div>
 
     <shiro:hasPermission name="sys:user:add">
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addUser">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="addUser">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
         </div>
-    </div>
     </shiro:hasPermission>
 </form>
 <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
