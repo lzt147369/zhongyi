@@ -3,7 +3,7 @@
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="utf-8">
-    <title>中一云平台</title>
+    <title>三立逸家</title>
     <link rel="shortcut icon" href="//16826213.s21i.faiusr.com/5/ABUIABAFGAAgkMvX2AUo5syZ6gEwQDhA.ico"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -13,11 +13,6 @@
     <link rel="stylesheet" href="/static/layuiadmin/style/admin.css" media="all">
 
    <style>
-
-
-
-
-
 
    </style>
 </head>
@@ -33,25 +28,25 @@
                         <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
                     </a>
                 </li>
-                <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="http://www.baidu.com" target="_blank" title="前台">
-                        <i class="layui-icon layui-icon-website"></i>
-                    </a>
-                </li>
+<!--                <li class="layui-nav-item layui-hide-xs" lay-unselect>-->
+<!--                    <a href="http://www.baidu.com" target="_blank" title="前台">-->
+<!--                        <i class="layui-icon layui-icon-website"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;" layadmin-event="refresh" title="刷新">
                         <i class="layui-icon layui-icon-refresh-3"></i>
                     </a>
                 </li>
-                <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search"
-                           layadmin-event="serach" lay-action="search/list?keywords=">
-                </li>
+<!--                <li class="layui-nav-item layui-hide-xs" lay-unselect>-->
+<!--                    <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search"-->
+<!--                           layadmin-event="serach" lay-action="search/list?keywords=">-->
+<!--                </li>-->
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
                 <li class="layui-nav-item" lay-unselect>
-                    <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+                    <a lay-href="app/message/index.html" layadmin-event="message" style="display: none" lay-text="消息中心">
                         <i class="layui-icon layui-icon-notice"></i>
 
                         <!-- 如果有新消息，则显示小圆点 -->
@@ -88,11 +83,11 @@
                 </li>
 
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="javascript:;" layadmin-event="about"><i
+                    <a href="javascript:;" layadmin-event="about1"><i
                             class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
                 <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
-                    <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                    <a href="javascript:;" layadmin-event="more1"><i class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
             </ul>
         </div>
@@ -100,8 +95,8 @@
         <!-- 侧边菜单 -->
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
-                <div class="layui-logo" lay-href="home/console.html">
-                    <span>中一模拟</span>
+                <div class="layui-logo">
+                    <span>三立逸家</span>
                 </div>
 
 
@@ -143,7 +138,7 @@
             <div class="layadmin-tabsbody-item layui-show">
                 <!--                <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>-->
 
-                <iframe src="/admin/main" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="/kehu/list" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
 
@@ -181,18 +176,26 @@
         for (var i = 0; i < data.length; i++) {
 
             ulHtml += '<li class="layui-nav-item">';
+            if (data[i].href==""){
+                ulHtml += '<a href="javascript:;" lay-tips="' + data[i].title + '" lay-direction="2">';
+            } else{
+                ulHtml += '<a lay-href="'+data[i].href+'" lay-tips="' + data[i].title + '" lay-direction="2">';
+            }
 
-            ulHtml += '<a href="javascript:;" lay-tips="' + data[i].title + '" lay-direction="2">';
-         1
             ulHtml += '<cite>' + data[i].title + '</cite>';
             ulHtml += '</a>';
+            if (data[i].children.length==0){
 
-            ulHtml += '<dl class="layui-nav-child">';
-            for (var j = 0; j < data[i].children.length; j++) {
-                ulHtml += ' <dd >';
-                ulHtml += ' <a lay-href="' + data[i].children[j].href + '">' + data[i].children[j].title + '</a>';
-                ulHtml += ' </dd >';
+            } else{
+                ulHtml += '<dl class="layui-nav-child">';
+                for (var j = 0; j < data[i].children.length; j++) {
+                    ulHtml += ' <dd >';
+                    ulHtml += ' <a lay-href="' + data[i].children[j].href + '">' + data[i].children[j].title + '</a>';
+                    ulHtml += ' </dd >';
+                }
             }
+
+
             ulHtml += ' </dl>';
             ulHtml += '  </li>';
         }
@@ -213,6 +216,14 @@
 
 <!-- 百度统计 -->
 <script>
+    document.addEventListener("keydown", function (e) {
+        if(e.keyCode==13) {
+alert()
+        }
+    }, false);
+
+
+
     var _hmt = _hmt || [];
     (function () {
         var hm = document.createElement("script");
@@ -220,6 +231,8 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
+
+
 
 
 </script>

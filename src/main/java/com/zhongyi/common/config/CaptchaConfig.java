@@ -25,7 +25,7 @@ public class CaptchaConfig {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "blue");
         properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "100");
         properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "40");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "1");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "1"); //生成验证码
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "Consolas, Courier New");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "26");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");

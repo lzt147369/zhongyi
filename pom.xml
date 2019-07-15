@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.xiaoshu</groupId>
-    <artifactId>zhongyi</artifactId>
+    <artifactId>sanli</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>zhongyi</name>
-    <description>中一云服务</description>
+    <name>sanli</name>
+    <description>三立逸家</description>
 
     <repositories>
         <!--阿里云仓库-->
@@ -173,24 +173,17 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <!--  Elasticsearch-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
-        <!--  二维码-->
-        <!-- 二维码支持包 -->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.2.0</version>
-        </dependency>
+
+
 
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>3.2.0</version>
         </dependency>
+
+
+
 
 
     </dependencies>

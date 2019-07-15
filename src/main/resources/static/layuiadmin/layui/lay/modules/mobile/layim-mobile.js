@@ -223,7 +223,7 @@ layui.define(['laytpl', 'upload-mobile', 'layer-mobile', 'zepto'], function (exp
         , '<ul class="layim-list-friend">'
         , '{{# layui.each(d.friend, function(index, item){ var spread = d.local["spread"+index]; }}'
         , '<li>'
-        , '<h5 layim-event="spread" lay-type="{{ spread }}"><i class="layui-icon">{{# if(spread === "true"){ }}&#xe61a;{{# } else {  }}&#xe602;{{# } }}</i><span>{{ item.groupname||"未命名分组"+index }}</span><em>(<cite class="layim-count"> {{ (item.list||[]).length }}</cite>)</em></h5>'
+        , '<zhuce layim-event="spread" lay-type="{{ spread }}"><i class="layui-icon">{{# if(spread === "true"){ }}&#xe61a;{{# } else {  }}&#xe602;{{# } }}</i><span>{{ item.groupname||"未命名分组"+index }}</span><em>(<cite class="layim-count"> {{ (item.list||[]).length }}</cite>)</em></zhuce>'
         , '<ul class="layui-layim-list {{# if(spread === "true"){ }}'
         , ' layui-show'
         , '{{# } }}">'
@@ -295,7 +295,7 @@ layui.define(['laytpl', 'upload-mobile', 'layer-mobile', 'zepto'], function (exp
     layui.data.content = function (content) {
         //支持的html标签
         var html = function (end) {
-            return new RegExp('\\n*\\[' + (end || '') + '(pre|div|p|table|thead|th|tbody|tr|td|ul|li|ol|li|dl|dt|dd|h2|h3|h4|h5)([\\s\\S]*?)\\]\\n*', 'g');
+            return new RegExp('\\n*\\[' + (end || '') + '(pre|div|p|table|thead|th|tbody|tr|td|ul|li|ol|li|dl|dt|dd|h2|h3|h4|zhuce)([\\s\\S]*?)\\]\\n*', 'g');
         };
         content = (content || '').replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
             .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;') //XSS

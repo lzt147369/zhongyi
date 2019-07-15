@@ -3,7 +3,7 @@ server:
   port: 8081   #端口
 spring:     #数据源
   datasource:
-    url: jdbc:mysql://localhost:3306/xingli?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://117.34.95.218:8877/sanli?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver

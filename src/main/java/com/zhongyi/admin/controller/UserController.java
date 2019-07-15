@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhongyi.admin.entity.Role;
 import com.zhongyi.admin.entity.User;
 import com.zhongyi.admin.service.RoleService;
-import com.zhongyi.admin.service.UploadService;
 import com.zhongyi.admin.service.UserService;
 import com.zhongyi.common.annotation.SysLog;
 import com.zhongyi.common.base.PageData;
@@ -40,8 +39,7 @@ public class UserController {
     @Autowired
     RoleService roleService;
 
-    @Autowired
-    UploadService uploadService;
+
 
     @GetMapping("list")
     @SysLog("跳转系统用户列表页面")
@@ -311,7 +309,7 @@ public class UserController {
         String url = null;
         Map map = new HashMap();
         try {
-            url = uploadService.upload(file);
+         //   url = uploadService.upload(file);
             map.put("url", url);
             map.put("name", file.getOriginalFilename());
         } catch (Exception e) {

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>签到</title>
+    <link rel="stylesheet" th:href="@{/static/qiandao/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/layuiadmin/layui/css/layui.css}" media="all">
+</head>
+<body>
+<body style="">
+
+<div class="banner2"><img th:src="@{/static/qiandao/img/banner.jpg}" class="img-responsive"></div>
+<div id="fromBox" class="fromBox">
+
+    <div class="from">
+        <input type="tel" id="telphone" name="phone"  placeholder="输入手机号进行签到">
+    </div>
+
+    <button id="btn-lq" class="btn3" style="cursor: pointer">确定</button>
+
+</div>
+
+
+
+<div class="pt10lr10 mt10">
+    <div id="tabs-body2" class="tabsbox">
+        <div class="title1">活动说明</div>
+        <p>1.活动时间：2019年1月1日——2019年2月31日。<br>
+            2.本次活动为福建某某公司专属特权活动，仅针对目标用户参与。<br>
+            3.活动期间，福建某某公司专属客户每天可参与抽奖一次。<br>
+            4.每天分享到朋友圈还可以参加博饼一次。<br>
+            5.本次活动奖品为300M流量、500M流量、1G流量、2G流量、3G流量、4G流量；<br>
+            6.每个用户当月获得流量奖品将于次月到账。<br>
+        </p>
+        <br>
+    </div>
+</div>
+<script th:src="@{/static/qiandao/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript">
+
+    layui.use(['form', 'layer'], function () {
+        layer = parent.layer === undefined ? layui.layer : parent.layer;
+        $ = layui.jquery;
+        form = layui.form;
+
+        //登记
+        $("#btn-lq").on('click', function(){
+
+            var phone=$("#telphone").val();
+            if (phone == '' || !(/^1(3|4|5|7|8|9)\d{9}$/.test(phone))) {
+                layer.msg('请检查手机号格式', {
+                    offset: '15px'
+                    , icon: 5
+                });
+                return false;
+            }
+
+            $.ajax({
+                url: 'http://sanli.zhongyimoni.cn:8081/qiandao/login',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    phone: phone
+                },
+                success: function (rs) {
+                    if (rs.code == 3) {
+                        layer.msg(rs.msg, {
+                            offset: '15px'
+                            , icon: 1
+                            , time: 3000
+                        }, function () {
+                             location.href = "http://sanli.zhongyimoni.cn:8081/qiandao/index?phone="+phone;
+                        });
+
+                    } else {
+                        layer.msg(rs.msg, {
+                            offset: '15px'
+                            , icon: 5
+                        });
+
+                    }
+
+                    if (rs.code == 2) {
+                        layer.msg(rs.msg, {
+                            offset: '15px'
+                            , icon: 1
+                            , time: 1000
+                        }, function () {
+                            location.href = "http://sanli.zhongyimoni.cn:8081/zhuce/list";
+                        });
+                    }
+
+
+                }
+            });
+
+
+
+
+        });
+
+    });
+
+
+
+</script>
+
+</body>
+</body>
+</html>

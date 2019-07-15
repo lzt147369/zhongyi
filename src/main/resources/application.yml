@@ -17,12 +17,6 @@ spring:
     host: localhost
     port: 6379
     password:
-  data:
-    elasticsearch:
-      cluster-nodes: localhost:9300
-      repositories:
-        enabled: true
-      cluster-name: my-application
 #mybatisPlus
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml

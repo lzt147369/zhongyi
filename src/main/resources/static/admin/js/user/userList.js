@@ -34,7 +34,7 @@ layui.use(['layer', 'form', 'table', 'laytpl'], function () {
         var data = obj.data;
         if (obj.event === 'lock') {
             var locked = data.locked;
-            layer.confirm("你确定要" + (locked ? "重新启用" : "锁定") + "该用户么？", {btn: ['是的,我确定', '我再想想']},
+            layer.confirm("你确定要" + (locked ? "重新启用" : "锁定") + "该用户么？", {btn: ['是的,我确定', '取消']},
                 function () {
                     $.post("/admin/system/user/lock", {"id": data.id}, function (res) {
                         if (res.success) {
@@ -80,7 +80,7 @@ layui.use(['layer', 'form', 'table', 'laytpl'], function () {
         }
 
         if (obj.event === "del") {
-            layer.confirm("你确定要删除该用户么？", {btn: ['是的,我确定', '我再想想']},
+            layer.confirm("你确定要删除该用户么？", {btn: ['是的,我确定', '取消']},
                 function () {
                     $.post("/admin/system/user/delete", {"id": data.id}, function (res) {
                         if (res.success) {
@@ -142,7 +142,7 @@ layui.use(['layer', 'form', 'table', 'laytpl'], function () {
                         return false;
                     }
                 }
-                layer.confirm("你确定要删除这些用户么？", {btn: ['是的,我确定', '我再想想']},
+                layer.confirm("你确定要删除这些用户么？", {btn: ['是的,我确定', '取消']},
                     function () {
                         var deleteindex = layer.msg('删除中，请稍候', {icon: 16, time: false, shade: 0.8});
                         $.ajax({

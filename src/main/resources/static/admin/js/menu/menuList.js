@@ -92,7 +92,7 @@ layui.config({
             layuiresize(editIndex);
         }
         if (obj.event === "delMenu") {
-            layer.confirm("你确定要删除该菜单么？这将会使得其下的所有子菜单都删除", {btn: ['是的,我确定', '我再想想']},
+            layer.confirm("你确定要删除该菜单么？这将会使得其下的所有子菜单都删除", {btn: ['是的,我确定', '取消']},
                 function () {
                     $.post("/admin/system/menu/delete", {"id": data.id}, function (res) {
                         if (res.success) {
