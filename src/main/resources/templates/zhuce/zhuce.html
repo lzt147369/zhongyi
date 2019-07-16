@@ -116,7 +116,7 @@
 
             $.ajax({
                 url: 'http://sanli.zhongyimoni.cn:8081/zhuce/register',
-                type: 'post',
+                type: 'GET',
                 dataType: 'json',
                 data: {
                     phone: phone,
@@ -165,7 +165,7 @@
 
         $.ajax({
             url: 'http://sanli.zhongyimoni.cn:8081/zhuce/sendCode',
-            type: 'post',
+            type: 'GET',
             dataType: 'json',
             data: {
                 phone: phone

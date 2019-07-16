@@ -94,7 +94,7 @@ $(function(){
 	$("#phone").val(phone);
 	$.ajax({
 		url: 'http://sanli.zhongyimoni.cn:8081/qiandao/select',
-		type: 'post',
+		type: 'GET',
 		dataType: 'json',
 		data: {
 			phone: phone
@@ -145,15 +145,15 @@ $("#msqd-but1").one('click',function(){
 		//向数据库插入一条记录
 		$.ajax({
 			url: 'http://sanli.zhongyimoni.cn:8081/qiandao/insert',
-			type: 'post',
+			type: 'GET',
 			dataType: 'json',
 			data: {
 				phone: $("#phone").val()
 			},
 			success: function () {
 				$.ajax({
-					url: '/qiandao/select',
-					type: 'post',
+					url: 'http://sanli.zhongyimoni.cn:8081/qiandao/select',
+					type: 'GET',
 					dataType: 'json',
 					data: {
 						phone: $("#phone").val()
@@ -194,7 +194,7 @@ function  signIn3(){
 	//发送ajax请求
 	$.ajax({
 		url: 'http://sanli.zhongyimoni.cn:8081qiandao/qitianlibao',
-		type: 'post',
+		type: 'GET',
 		dataType: 'json',
 		data: {
 			phone: $("#phone").val()

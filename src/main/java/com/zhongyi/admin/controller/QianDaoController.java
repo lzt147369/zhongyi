@@ -99,7 +99,7 @@ public class QianDaoController {
     }
 
     //插入一条签到记录
-    @PostMapping("insert")
+    @RequestMapping("insert")
     @ResponseBody
     public ApiResponse insert(String phone) throws ParseException {
 
@@ -183,7 +183,7 @@ public class QianDaoController {
 
 
     //查询签到详情
-    @PostMapping("select")
+    @RequestMapping("select")
     @ResponseBody
     public ApiResponse select(String phone) {
         ApiResponse apiResponse = new ApiResponse();
@@ -229,33 +229,13 @@ public class QianDaoController {
         } else {
             map.put("isqiandao", false);
         }
-        //查询积分   礼包是否可以领取
-
-        QueryWrapper queryWrapper1 = new QueryWrapper();
-        queryWrapper1.eq("phone", phone);
-
-        Jifen jifen = jifenService.getOne(queryWrapper1);
-
-        if (jifen!=null)
-            map.put("count", jifen.getJifenCount());
-        if (qiandao!=null){
-            if (qiandao.getDays7()==1){
-                map.put("is", false);
-            }else {
-                map.put("is", true);
-            }
-
-
-        }
-
-        apiResponse.setCode(200);
         apiResponse.setExtend(map);
         return apiResponse;
 
 
     }
     //七天礼包
-    @PostMapping("qitianlibao")
+    @RequestMapping("qitianlibao")
     @ResponseBody
     public ApiResponse qitianlibao(String phone){
         ApiResponse apiResponse = new ApiResponse();
@@ -283,33 +263,32 @@ public class QianDaoController {
         return apiResponse;
     }
     //查询积分  总积分   查询连续签到天数
-    @PostMapping("chaxunjifen")
+    @RequestMapping("chaxunjifen")
     @ResponseBody
     public ApiResponse chaxunjifen(String phone){
-        System.out.println("查询积分");
         ApiResponse apiResponse = new ApiResponse();
 
-//        QueryWrapper queryWrapper = new QueryWrapper();
-//        queryWrapper.eq("phone", phone);
-//
-//        Jifen jifen = jifenService.getOne(queryWrapper);
-//        Qiandao qiandao = qiandaoService.getOne(queryWrapper);
-//
-//        Map map = new HashMap();
-//        if (jifen!=null)
-//        map.put("count", jifen.getJifenCount());
-//        if (qiandao!=null){
-//            if (qiandao.getDays7()==1){
-//                map.put("is", false);
-//            }else {
-//                map.put("is", true);
-//            }
-//
-//
-//        }
-//
-//        apiResponse.setCode(200);
-//        apiResponse.setExtend(map);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("phone", phone);
+
+        Jifen jifen = jifenService.getOne(queryWrapper);
+        Qiandao qiandao = qiandaoService.getOne(queryWrapper);
+
+        Map map = new HashMap();
+        if (jifen!=null)
+        map.put("count", jifen.getJifenCount());
+        if (qiandao!=null){
+            if (qiandao.getDays7()==1){
+                map.put("is", false);
+            }else {
+                map.put("is", true);
+            }
+
+
+        }
+
+        apiResponse.setCode(200);
+        apiResponse.setExtend(map);
         return apiResponse;
     }
 
@@ -336,13 +315,13 @@ public class QianDaoController {
         }
     }
 
-//    public static void main(String[] args) {
-//        Date date = new Date();
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String format = sdf.format(date);
-//        System.out.println(format);
-//        System.out.println(format.substring(5, 7));
-//    }
+    public static void main(String[] args) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String format = sdf.format(date);
+        System.out.println(format);
+        System.out.println(format.substring(5, 7));
+    }
 
 
 }

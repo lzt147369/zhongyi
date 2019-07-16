@@ -101,9 +101,10 @@ public class KehuController {
     }
 
     //查询邀请码
-    @PostMapping("chaxunyaoqingma")
+    @GetMapping("chaxunyaoqingma")
     @ResponseBody
     public ApiResponse chaxunyaoqingma(String phone){
+        System.out.println("chaxunyaoqingma()"+phone);
         QueryWrapper<Kehu> userWrapper = new QueryWrapper<>();
         userWrapper.eq("phone",phone);
         Kehu kehu = kehuService.getOne(userWrapper);

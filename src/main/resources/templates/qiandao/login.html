@@ -60,7 +60,7 @@
 
             $.ajax({
                 url: 'http://sanli.zhongyimoni.cn:8081/qiandao/login',
-                type: 'post',
+                type: 'GET',
                 dataType: 'json',
                 data: {
                     phone: phone
@@ -72,7 +72,7 @@
                             , icon: 1
                             , time: 3000
                         }, function () {
-                             location.href = "http://sanli.zhongyimoni.cn:8081/qiandao/index?phone="+phone;
+                            location.href = "http://sanli.zhongyimoni.cn:8081/qiandao/index?phone="+phone;
                         });
 
                     } else {
