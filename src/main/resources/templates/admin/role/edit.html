@@ -62,7 +62,7 @@
                                lay-filter="roleMenu" th:data-parentIds="${menu.parentIds}"
                                th:checked="${#strings.contains(menuIds,menu.id)} ? checked "/>
                     </legend>
-                    <div class="layui-field-box" th:include="/admin/role/menu::editMenuLi(${menu.children})">
+                    <div class="layui-field-box" th:include="admin/role/menu::editMenuLi(${menu.children})">
                     </div>
                 </fieldset>
             </div>

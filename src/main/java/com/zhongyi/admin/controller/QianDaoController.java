@@ -14,9 +14,7 @@ import com.zhongyi.common.util.DateIncrementer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +50,7 @@ public class QianDaoController {
 
     @RequestMapping("index")
     public String index() {
+        System.out.println("进入签到页面....index()");
         return "qiandao/index";
     }
 
@@ -68,8 +67,9 @@ public class QianDaoController {
     }
 
     //手机号登陆签到页面
-    @RequestMapping("login")
+    @RequestMapping("logindenglu")
     public String login() {
+        System.out.println("签到页面输入手机号码....logindenglu()");
         return "qiandao/login";
     }
 
@@ -99,7 +99,7 @@ public class QianDaoController {
     }
 
     //插入一条签到记录
-    @RequestMapping("insert")
+    @PostMapping("insert")
     @ResponseBody
     public ApiResponse insert(String phone) throws ParseException {
 
@@ -183,7 +183,7 @@ public class QianDaoController {
 
 
     //查询签到详情
-    @RequestMapping("select")
+    @PostMapping("select")
     @ResponseBody
     public ApiResponse select(String phone) {
         ApiResponse apiResponse = new ApiResponse();
@@ -209,11 +209,16 @@ public class QianDaoController {
         wrapper1.like("create_date", same);
         List<QiandaoDetail> list = qiandaoDetailService.list(wrapper1);
         List listday = new ArrayList();
-        for (QiandaoDetail detail : list) {
-            String day = sdf.format(detail.getCreateDate()).substring(8, 10);
-            listday.add(day);
+        if (!list.isEmpty()){
+            for (QiandaoDetail detail : list) {
+                String day = sdf.format(detail.getCreateDate()).substring(8, 10);
+                listday.add(day);
+            }
+            map.put("lianxu", listday);
+        }else {
+            map.put("lianxu", listday);
         }
-        map.put("lianxu", listday);
+
 
         //今日是否签到过
         Date date1 = qiandao.getCreateDate();
@@ -229,13 +234,36 @@ public class QianDaoController {
         } else {
             map.put("isqiandao", false);
         }
+
+        //查询积分   领取按钮是否置位disabled
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("phone", phone);
+
+        Jifen jifen1 = jifenService.getOne(queryWrapper);
+        Qiandao qiandao1 = qiandaoService.getOne(queryWrapper);
+
+        if (jifen1!=null){
+            map.put("count", jifen1.getJifenCount());
+        }else{
+            map.put("count", 0);
+        }
+
+        if (qiandao1!=null){
+            if (qiandao1.getDays7()==1){
+                map.put("is", false);
+            }else {
+                map.put("is", true);
+            }
+        }else{
+            map.put("is", false);
+        }
         apiResponse.setExtend(map);
         return apiResponse;
 
 
     }
     //七天礼包
-    @RequestMapping("qitianlibao")
+    @PostMapping("qitianlibao")
     @ResponseBody
     public ApiResponse qitianlibao(String phone){
         ApiResponse apiResponse = new ApiResponse();
@@ -246,13 +274,19 @@ public class QianDaoController {
         Qiandao qiandao = qiandaoService.getOne(queryWrapper);
         Jifen jifen = jifenService.getOne(queryWrapper);
         //判断是否能够领取积分
-        if (qiandao.getDays7()!=0){ //是
-            apiResponse.setCode(500);
-            return apiResponse;
+        if (qiandao!=null){
 
+            if (qiandao.getDays7()!=0){ //是
+                apiResponse.setCode(500);
+                return apiResponse;
+
+            }
         }
-        jifen.setJifenCount(jifen.getJifenCount()+JIFENVALUE_DAYS7);
-        jifenService.saveOrUpdate(jifen);
+        if (jifen!=null){
+
+            jifen.setJifenCount(jifen.getJifenCount()+JIFENVALUE_DAYS7);
+            jifenService.saveOrUpdate(jifen);
+        }
 
         //同时清空连续签到情况
 
@@ -263,34 +297,17 @@ public class QianDaoController {
         return apiResponse;
     }
     //查询积分  总积分   查询连续签到天数
-    @RequestMapping("chaxunjifen")
-    @ResponseBody
-    public ApiResponse chaxunjifen(String phone){
-        ApiResponse apiResponse = new ApiResponse();
-
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("phone", phone);
-
-        Jifen jifen = jifenService.getOne(queryWrapper);
-        Qiandao qiandao = qiandaoService.getOne(queryWrapper);
-
-        Map map = new HashMap();
-        if (jifen!=null)
-        map.put("count", jifen.getJifenCount());
-        if (qiandao!=null){
-            if (qiandao.getDays7()==1){
-                map.put("is", false);
-            }else {
-                map.put("is", true);
-            }
-
-
-        }
-
-        apiResponse.setCode(200);
-        apiResponse.setExtend(map);
-        return apiResponse;
-    }
+//    @PostMapping("chaxunjifen")
+//    @ResponseBody
+//    public ApiResponse chaxunjifen(String phone){
+//        ApiResponse apiResponse = new ApiResponse();
+//
+//
+//
+//        apiResponse.setCode(200);
+//        apiResponse.setExtend(map);
+//        return apiResponse;
+//    }
 
 
 
@@ -315,13 +332,7 @@ public class QianDaoController {
         }
     }
 
-    public static void main(String[] args) {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String format = sdf.format(date);
-        System.out.println(format);
-        System.out.println(format.substring(5, 7));
-    }
+
 
 
 }

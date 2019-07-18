@@ -101,14 +101,20 @@ public class KehuController {
     }
 
     //查询邀请码
-    @GetMapping("chaxunyaoqingma")
+    @PostMapping("chaxunyaoqingma")
     @ResponseBody
     public ApiResponse chaxunyaoqingma(String phone){
+        ApiResponse apiResponse = new ApiResponse();
         System.out.println("chaxunyaoqingma()"+phone);
         QueryWrapper<Kehu> userWrapper = new QueryWrapper<>();
         userWrapper.eq("phone",phone);
         Kehu kehu = kehuService.getOne(userWrapper);
-        ApiResponse apiResponse = new ApiResponse();
+        if (kehu==null){
+            apiResponse.setCode(500);
+            apiResponse.setMsg("该手机号码未注册");
+            return apiResponse;
+        }
+
         apiResponse.setCode(200);
         apiResponse.setMsg("您的邀请码是:"+kehu.getYaoqingma());
         Map map = new HashMap();

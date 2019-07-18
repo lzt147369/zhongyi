@@ -52,6 +52,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/zhuce/sendCode", "anon");
         //查询邀请码
         filterChainDefinitionMap.put("/kehu/yaoqingmalist", "anon");
+        filterChainDefinitionMap.put("/kehu/chaxunyaoqingma", "anon");
 
         //签到
         filterChainDefinitionMap.put("/qiandao/index", "anon");
@@ -59,9 +60,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/qiandao/jiangli", "anon");
         filterChainDefinitionMap.put("/qiandao/login", "anon");
         filterChainDefinitionMap.put("/qiandao/select", "anon");
-        filterChainDefinitionMap.put("qiandao/chaxunjifen", "anon");
-        filterChainDefinitionMap.put("qiandao/qitianlibao", "anon");
-        filterChainDefinitionMap.put("qiandao/insert", "anon");
+        filterChainDefinitionMap.put("/qiandao/chaxunjifen", "anon");
+        filterChainDefinitionMap.put("/qiandao/qitianlibao", "anon");
+        filterChainDefinitionMap.put("/qiandao/insert", "anon");
+        filterChainDefinitionMap.put("/qiandao/logindenglu", "anon");
         //  注册
         filterChainDefinitionMap.put("/register/index", "anon");
         filterChainDefinitionMap.put("/register/submit", "anon");

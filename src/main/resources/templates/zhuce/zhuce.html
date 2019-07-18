@@ -58,7 +58,7 @@
                 <label class="layadmin-user-login-icon layui-icon layui-icon-group"
                        for="LAY-user-login-name"></label>
                 <input type="text" name="beiyaoqingma" id="beiyaoqingma"
-                       lay-vertype="tips" placeholder="邀请码"
+                       lay-vertype="tips" placeholder="邀请码(选填)"
                        class="layui-input">
             </div>
             <div class="layui-form-item">
@@ -83,9 +83,10 @@
 
 </div>
 
-<script src="/static/layui/layui.js"></script>
+<script th:src="@{/static/layui/layui.js}"></script>
 
 <script>
+    var url = "http://sanli.zhongyimoni.cn:8081";
     var layer;
     var $;
     var InterValObj; //timer变量，控制时间
@@ -115,7 +116,7 @@
 
 
             $.ajax({
-                url: 'http://sanli.zhongyimoni.cn:8081/zhuce/register',
+                url: '/zhuce/register',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -132,7 +133,7 @@
                             offset: '15px'
                             , icon: 1
                         }, function () {
-                           location.href = "/qiandao/login";
+                          // window.location.href = "/qiandao/login";
                         });
 
                     } else {
@@ -164,7 +165,7 @@
         }
 
         $.ajax({
-            url: 'http://sanli.zhongyimoni.cn:8081/zhuce/sendCode',
+            url:'/zhuce/sendCode',
             type: 'GET',
             dataType: 'json',
             data: {

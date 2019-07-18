@@ -57,7 +57,7 @@
                         <input type="checkbox" th:title="${menu.name}" th:value="${menu.id}"
                                lay-filter="roleMenu" th:data-parentIds="${menu.parentIds}"/>
                     </legend>
-                    <div class="layui-field-box" th:include="/admin/role/menu::addMenuLi(${menu.children})">
+                    <div class="layui-field-box" th:include="admin/role/menu::addMenuLi(${menu.children})">
                     </div>
                 </fieldset>
             </div>

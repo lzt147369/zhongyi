@@ -16,6 +16,7 @@ import com.zhongyi.common.util.ShareCodeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,7 +74,7 @@ public class ZhuceController {
             Kehu kehu2 = kehuService.getOne(queryWrapper1);
             if (kehu2 == null) {  //不存在此邀请码
                 msg.setCode(6);
-                msg.setMsg("邀请码错误！");
+                msg.setMsg("邀请码错误");
                 return msg;
             }
             kehu1.setBeiyaoqingma(beiyaoqingma);
@@ -136,14 +137,14 @@ public class ZhuceController {
 
 
                 msg.setCode(3);
-                msg.setMsg("注册成功!签到有大礼包...");
+                msg.setMsg("注册成功");
                 return msg;
 
             } else {
                 //验证码填写错误
 
                 msg.setCode(4);
-                msg.setMsg("验证码填写错误！");
+                msg.setMsg("验证码填写错误");
                 return msg;
             }
 
@@ -163,7 +164,7 @@ public class ZhuceController {
 
     //发送验证码
     //手机验证码业务 ---注册
-    @PostMapping("sendCode")
+    @GetMapping("sendCode")
     @ResponseBody
     public ApiResponse sendCode(String phone) {
         ApiResponse msg = new ApiResponse();

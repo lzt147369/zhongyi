@@ -90,24 +90,32 @@
 <script>
 $(function(){
 	//取得当前的手机号
-	var phone = getQueryString("phone");
+	var phone = POSTQueryString("phone");
 	$("#phone").val(phone);
 	$.ajax({
-		url: 'http://sanli.zhongyimoni.cn:8081/qiandao/select',
-		type: 'GET',
+		url: '/qiandao/select',
+		type: 'POST',
 		dataType: 'json',
 		data: {
 			phone: phone
 		},
 		success: function (rs) {
+			if (rs.code==100){
+				$("#lq-but1").addClass("btn-disable");
+				$("#lq-but1").attr("disabled","disabled");
+				$("#jifenCount").text(0);
+				return;
+			}
 			//ajax获取日历json数据
 			var signList=[];
 			var list = rs.extend.lianxu;
-			for(var i=0;i<list.length;i++){
-				var demo = {"signDay":list[i]};
-				signList.push(demo);
-			}
-			calUtil.init(signList);
+				for(var i=0;i<list.length;i++){
+					var demo = {"signDay":list[i]};
+					signList.push(demo);
+				}
+				calUtil.init(signList);
+			
+
 			var isqiandao = rs.extend.isqiandao;
 
 			if (isqiandao){
@@ -144,16 +152,16 @@ $(function(){
 $("#msqd-but1").one('click',function(){
 		//向数据库插入一条记录
 		$.ajax({
-			url: 'http://sanli.zhongyimoni.cn:8081/qiandao/insert',
-			type: 'GET',
+			url: '/qiandao/insert',
+			type: 'POST',
 			dataType: 'json',
 			data: {
 				phone: $("#phone").val()
 			},
 			success: function () {
 				$.ajax({
-					url: 'http://sanli.zhongyimoni.cn:8081/qiandao/select',
-					type: 'GET',
+					url: '/qiandao/select',
+					type: 'POST',
 					dataType: 'json',
 					data: {
 						phone: $("#phone").val()
@@ -193,8 +201,8 @@ $("#msqd-but1").one('click',function(){
 function  signIn3(){
 	//发送ajax请求
 	$.ajax({
-		url: 'http://sanli.zhongyimoni.cn:8081qiandao/qitianlibao',
-		type: 'GET',
+		url: '/qiandao/qitianlibao',
+		type: 'POST',
 		dataType: 'json',
 		data: {
 			phone: $("#phone").val()
@@ -233,7 +241,7 @@ function  signIn4(){
 }
 
 //获取url  phone参数
-function getQueryString(name) {
+function POSTQueryString(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 	var r = window.location.search.substr(1).match(reg);
 	if (r != null) return unescape(r[2]); return null;

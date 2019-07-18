@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>三立逸家</title>
+    <title>获取推广码</title>
     <link rel="shortcut icon" href="//16826213.s21i.faiusr.com/5/ABUIABAFGAAgkMvX2AUo5syZ6gEwQDhA.ico"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -10,7 +10,7 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" th:href="@{/static/layuiadmin/layui/css/layui.css}" media="all">
     <link rel="stylesheet" th:href="@{/static/layuiadmin/style/admin.css}" media="all">
-    <link rel="stylesheet" th:href="@{/static/layuiadmin/style/admin.css}" media="all">
+    <link rel="stylesheet" th:href="@{/static/layuiadmin/style/login.css}" media="all">
 </head>
 <body>
 
@@ -18,25 +18,24 @@
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
     <div class="layadmin-user-login-main">
         <div class="layadmin-user-login-box layadmin-user-login-header">
-            <h2>查询邀请码</h2>
+            <h2>获取推广码</h2>
         </div>
 
         <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
 
             <div class="layui-form-item">
-
                 <div class="layui-row">
                     <div class="layui-col-xs7">
-                        <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone"
+                        <label class="layadmin-user-login-icon layui-icon layui-icon layui-icon-cellphone"
                                for="LAY-user-login-cellphone"></label>
-                        <input type="text" name="phone" id="LAY-user-login-cellphone" lay-verify="required"
+                        <input type="text" name="vercode" id="LAY-user-login-cellphone" lay-verify="required"
                                lay-vertype="tips"
-                               placeholder="输入手机号码进行查询" class="layui-input">
+                               placeholder="输入手机号查询" class="layui-input">
                     </div>
                     <div class="layui-col-xs5">
                         <div style="margin-left: 10px;">
                             <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" id="getsmscode"
-                                    onclick="sendMessage()">查询
+                                    onclick="sendMessage()">获取推广码
                             </button>
                         </div>
                     </div>
@@ -47,10 +46,8 @@
 
             </div>
 
-
-
-
         </div>
+
 
 
     </div>
@@ -87,17 +84,26 @@
         }
 
         $.ajax({
-            url: 'http://sanli.zhongyimoni.cn:8081/kehu/chaxunyaoqingma',
-            type: 'GET',
+            url: '/kehu/chaxunyaoqingma',
+            type: 'POST',
             dataType: 'json',
             data: {
                 phone: phone
             },
             success: function (rs) {
+                if (rs.code==200){
+                    var ma = rs.extend.yaoqingma;
+                    $("#yaoqingma").text(ma);
+                    $("#tuiguangma").css("display","block")
+                }else{
+                    layer.msg(rs.msg, {
+                        offset: '15px'
+                        , icon: 5
+                    });
+                }
 
-                var ma = rs.extend.yaoqingma;
-                $("#yaoqingma").text(ma);
-                $("#tuiguangma").css("display","block")
+
+
 
             }
         });
@@ -106,7 +112,6 @@
 
 
     }
-
 
 
 

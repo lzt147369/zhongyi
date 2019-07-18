@@ -27,12 +27,11 @@
 <div class="pt10lr10 mt10">
     <div id="tabs-body2" class="tabsbox">
         <div class="title1">活动说明</div>
-        <p>1.活动时间：2019年1月1日——2019年2月31日。<br>
-            2.本次活动为福建某某公司专属特权活动，仅针对目标用户参与。<br>
-            3.活动期间，福建某某公司专属客户每天可参与抽奖一次。<br>
-            4.每天分享到朋友圈还可以参加博饼一次。<br>
-            5.本次活动奖品为300M流量、500M流量、1G流量、2G流量、3G流量、4G流量；<br>
-            6.每个用户当月获得流量奖品将于次月到账。<br>
+        <p>1.活动时间：2019年7月16日——2022年2月31日。<br>
+            2.本次活动为三立逸家公司专属特权活动，仅针对目标用户参与。<br>
+            3.活动期间，三立逸家公司专属客户每天可签到一次。<br>
+            5.每连续签到七天，可获取10个积分。<br>
+            6.每个用户可以将公众号推荐给身边的朋友，并且朋友填写自己的推广码后，可获得10个积分。<br>
         </p>
         <br>
     </div>
@@ -42,6 +41,7 @@
 <script type="text/javascript">
 
     layui.use(['form', 'layer'], function () {
+        var url = "";
         layer = parent.layer === undefined ? layui.layer : parent.layer;
         $ = layui.jquery;
         form = layui.form;
@@ -59,8 +59,8 @@
             }
 
             $.ajax({
-                url: 'http://sanli.zhongyimoni.cn:8081/qiandao/login',
-                type: 'GET',
+                url: '/qiandao/login',
+                type: 'POST',
                 dataType: 'json',
                 data: {
                     phone: phone
@@ -70,9 +70,9 @@
                         layer.msg(rs.msg, {
                             offset: '15px'
                             , icon: 1
-                            , time: 3000
+                            , time: 1000
                         }, function () {
-                            location.href = "http://sanli.zhongyimoni.cn:8081/qiandao/index?phone="+phone;
+                            window.location.href = '/qiandao/index?phone='+phone;
                         });
 
                     } else {
@@ -89,7 +89,7 @@
                             , icon: 1
                             , time: 1000
                         }, function () {
-                            location.href = "http://sanli.zhongyimoni.cn:8081/zhuce/list";
+                            window.location.href = '/zhuce/list';
                         });
                     }
 
